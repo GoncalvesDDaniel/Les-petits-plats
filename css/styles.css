@@ -1,16 +1,30 @@
 .bg-w100 {
-    width: 100dvw;
-    height: 100dvh;
-    /* background: url(../assets/photos/Recette15.jpg); */
-    background-color: rgb(54, 54, 54);
+    background: url(../assets/photos/hero-bg.png);
     background-repeat: no-repeat;
-    background-position: center;
+    /* background-position: center; */
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: local;
 }
-/* .bg-w100::before {
-    content: "";
-    background-color: rgba(0, 0, 0, 0.5);
-    /* width: 100%;
-    height: 100%; */
-/* }  
+.hero-font {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.1rem;
+    color: #ffd15b;
+}
+.search-button {
+    background-color: #1b1b1b;
+    padding: 0.2rem 0.1rem 0.2rem 0.2rem;
+    top: 4.35px;
+    right: 16px;
+}
+.search-button:hover {
+    background-color: #ffd15b;
+}
+.search-button_icon {
+    stroke: white;
+}
+
+.search-button.search-button_icon:hover {
+    stroke: black;
+}
