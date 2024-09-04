@@ -1,17 +1,29 @@
+section:not(:first-child) {
+    background-color: #ededed;
+}
 .bg-w100 {
     background: url(../assets/photos/hero-bg.png);
     background-repeat: no-repeat;
-    /* background-position: center; */
+    background-position: center;
     background-size: cover;
     background-attachment: local;
+}
+#recipe-search {
+    margin-bottom: 173px;
 }
 .hero-font {
     font-family: "Anton", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+h1.hero-font {
     letter-spacing: 0.1rem;
-    line-height: 4rem;
     color: #ffd15b;
+}
+@media (min-width: 1024px) {
+    h1.hero-font {
+        line-height: 4rem;
+    }
 }
 .search-button {
     background-color: #1b1b1b;
@@ -33,3 +45,21 @@
 /* .bg-white {
     background-color: #fff;
 } */
+#dropdown-ingredients::after {
+    content: none;
+}
+#dropdown-appareils::after {
+    content: none;
+}
+#dropdown-ustensiles::after {
+    content: none;
+}
+.dropdown-arrow {
+    margin-left: 63px;
+}
+.dropdown-all {
+    gap: 63px;
+}
+ul {
+    margin-bottom: 0rem;
+}

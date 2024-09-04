@@ -46,7 +46,7 @@
                 <h1 />
             </div>
           </div>
-          <div class="row pb-5">
+          <div class="row">
             <div class="cols position-relative">
               <label for="recipe-search" aria-describedby="recipe-search" class="visually-hidden"></label>
               <input id="recipe-search" type="text" class="form-control ps-4 py-4 rounded-4"
@@ -68,25 +68,142 @@
       </section>
   </div>
 
-  <section class="dropdown-search bg-light pt-3">
+  <section class="dropdown-search p-3">
     <div class="container">
-      <div class="row">
-        <div class="col">
+      <div class="row d-flex justify-content-between align-items-center">
+        <!-- <div class="col-10 hstack gap-5">
+          <div class="col-2 me-3">
 
-          <div class="dropdown">
-            <button class="btn p-3 pe-5 bg-white dropdown-toggle" type="button" id="dropdown-ingredient"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Ingrédients
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdown-ingredient">
-              <li><a class="dropdown-item">Lait de Coco</a></li>
-              <li><a class="dropdown-item">Poulet</a></li>
-              <li><a class="dropdown-item">Riz</a></li>
-            </ul>
+            <div class="dropdown">
+              <button class="btn p-3 bg-white dropdown-toggle" type="button" id="dropdown-ingredients"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Appareils
+                <svg class="dropdown-arrow" width="15" height="8" viewBox="0 0 15 8" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
+                </svg>
+
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdown-ingredients">
+                <li><a class="dropdown-item">Lait de Coco</a></li>
+                <li><a class="dropdown-item">Poulet</a></li>
+                <li><a class="dropdown-item">Riz</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-2 me-3">
+
+            <div class="dropdown">
+              <button class="btn p-3 bg-white dropdown-toggle" type="button" id="dropdown-appareils"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Appareils
+                <svg class="dropdown-arrow" width="15" height="8" viewBox="0 0 15 8" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
+                </svg>
+
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdown-appareils">
+                <li><a class="dropdown-item">Mixeur</a></li>
+                <li><a class="dropdown-item">Four</a></li>
+                <li><a class="dropdown-item">Hachoire</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-2 me-3">
+
+            <div class="dropdown">
+              <button class="btn p-3 bg-white dropdown-toggle" type="button" id="dropdown-ustensiles"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Ustensiles
+                <svg class="dropdown-arrow" width="15" height="8" viewBox="0 0 15 8" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
+                </svg>
+
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdown-ustensiles">
+                <li><a class="dropdown-item">Fourchette</a></li>
+                <li><a class="dropdown-item">Couteau</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div> -->
+        <div class="col hstack gap-5">
+          <div class="accordion col-2 me-3 align-self-start" id="accordionIngredients">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingIngredients">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
+                  ingrédients
+                </button>
+              </h2>
+              <div id="collapseIngredients" class="accordion-collapse collapse" aria-labelledby="headingIngredients"
+                data-bs-parent="#accordionIngredients">
+                <div class="accordion-body">
+                  <ul class="list-unstyled">
+                    <li>Poulet</li>
+                    <li>Riz</li>
+                    <li>Lait de Coco</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="accordion col-2 me-3 align-self-start" id="accordionAppareils">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingAppareils">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseAppareils" aria-expanded="false" aria-controls="collapseAppareils">
+                  Appareils
+                </button>
+              </h2>
+              <div id="collapseAppareils" class="accordion-collapse collapse" aria-labelledby="headingAppareils"
+                data-bs-parent="#accordionAppareils">
+                <div class="accordion-body">
+                  <ul class="list-unstyled">
+                    <li>Hachoire</li>
+                    <li>Plat</li>
+                    <li>Mortier</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="accordion col-2 me-3 align-self-start" id="accordionUstensiles">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingUstensiles">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseUstensiles" aria-expanded="false" aria-controls="collapseUstensiles">
+                  Ustensiles
+                </button>
+              </h2>
+              <div id="collapseUstensiles" class="accordion-collapse collapse" aria-labelledby="headingUstensiles"
+                data-bs-parent="#accordionUstensiles">
+                <div class="accordion-body">
+                  <ul class="list-unstyled">
+                    <li>Couteau</li>
+                    <li>Fourchette</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+        <div class="col-2">
+          <p class="hero-font fs-5 mb-0 text-end">1500 recettes</p>
+        </div>
+
       </div>
-    </div>
   </section>
   </main>
 
