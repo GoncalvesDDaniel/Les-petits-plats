@@ -35,33 +35,60 @@
       </nav>
     </header>
     <main>
+      <section class="hero-section">
 
-      <div class="container pt-4 w-75">
-        <div class="row mt-5">
-          <div class="col-8 mx-auto">
+        <div class="container pt-4 w-75">
+          <div class="row mt-5">
+            <div class="col-8 mx-auto">
 
-            <h1 class="hero-font py-4 text-uppercase text-center">
-              cherchez parmis plus de 1500 recettes du quotidien,simples et délicieuses
-              <h1 />
+              <h1 class="hero-font py-4 text-uppercase text-center">
+                cherchez parmis plus de 1500 recettes du quotidien,simples et délicieuses
+                <h1 />
+            </div>
+          </div>
+          <div class="row pb-5">
+            <div class="cols position-relative">
+              <label for="recipe-search" aria-describedby="recipe-search" class="visually-hidden"></label>
+              <input id="recipe-search" type="text" class="form-control ps-4 py-4 rounded-4"
+                placeholder="Rechercher une recette, un ingrédient, ..."
+                aria-label="Rechercher une recette ou un ingrédient">
+              <button class="search-button rounded-3 position-absolute border-0" aria-label="Cercher une recette">
+                <svg class="search-button_icon rounded " width="28" height="28" viewBox="0 0 28 28" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="10" r="9.5" />
+                  <line x1="18.3536" y1="18.6464" x2="27.3536" y2="27.6464" />
+                </svg>
+              </button>
+            </div>
+
           </div>
         </div>
-        <div class="row pb-5 mb-5">
-          <div class="cols position-relative">
-            <input id="recipe-search" type="text" class="form-control ps-4 py-3"
-              placeholder="Rechercher une recette, un ingrédient, ...">
-            <button class="search-button rounded position-absolute border-0">
-              <svg class="search-button_icon rounded w-75 h-75" width="28" height="28" viewBox="0 0 28 28" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" r="9.5" />
-                <line x1="18.3536" y1="18.6464" x2="27.3536" y2="27.6464" />
-              </svg>
-            </button>
-          </div>
 
+
+      </section>
+  </div>
+
+  <section class="dropdown-search bg-light pt-3">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+
+          <div class="dropdown">
+            <button class="btn p-3 pe-5 bg-white dropdown-toggle" type="button" id="dropdown-ingredient"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Ingrédients
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdown-ingredient">
+              <li><a class="dropdown-item">Lait de Coco</a></li>
+              <li><a class="dropdown-item">Poulet</a></li>
+              <li><a class="dropdown-item">Riz</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-
-    </main>
+    </div>
+  </section>
+  </main>
 
 </body>
 

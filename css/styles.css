@@ -15,9 +15,9 @@
 }
 .search-button {
     background-color: #1b1b1b;
-    padding: 0.2rem 0.1rem 0.2rem 0.2rem;
-    top: 4.35px;
-    right: 16px;
+    padding: 0.7rem;
+    top: 12px;
+    right: 23px;
 }
 .search-button:hover {
     background-color: #ffd15b;
@@ -29,3 +29,7 @@
 .search-button.search-button_icon:hover {
     stroke: black;
 }
+
+/* .bg-white {
+    background-color: #fff;
+} */
