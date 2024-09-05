@@ -1,212 +1,341 @@
 <!DOCTYPE html>
 <html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Les petits plats</title>
+        <link rel="stylesheet" href="./css/styles.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Les petits plats</title>
-  <link rel="stylesheet" href="./css/styles.css">
+        <!-- bootstrap css and icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+        />
 
-  <!-- bootstrap css and icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!-- fonts link -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+            rel="stylesheet"
+        />
 
-  <!-- fonts link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+        <!-- bootstrapp script -->
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+        ></script>
+    </head>
 
-  <!-- bootstrapp script -->
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-</head>
-
-<body>
-  <div class="bg-w100">
-    <header>
-      <nav class="navbar pb-4">
-        <div class="container">
-          <a class="navbar-brand" href="./index.html" aria-label="Menu principal, les petits plâts">
-            <img src="./assets/icons/Logo.png" alt="" class="col-8 py-5">
-          </a>
-        </div>
-      </nav>
-    </header>
-    <main>
-      <section class="hero-section">
-
-        <div class="container pt-4 w-75">
-          <div class="row mt-5">
-            <div class="col-8 mx-auto">
-
-              <h1 class="hero-font py-4 text-uppercase text-center">
-                cherchez parmis plus de 1500 recettes du quotidien,simples et délicieuses
-                <h1 />
-            </div>
-          </div>
-          <div class="row">
-            <div class="cols position-relative">
-              <label for="recipe-search" aria-describedby="recipe-search" class="visually-hidden"></label>
-              <input id="recipe-search" type="text" class="form-control ps-4 py-4 rounded-4"
-                placeholder="Rechercher une recette, un ingrédient, ..."
-                aria-label="Rechercher une recette ou un ingrédient">
-              <button class="search-button rounded-3 position-absolute border-0" aria-label="Cercher une recette">
-                <svg class="search-button_icon rounded " width="28" height="28" viewBox="0 0 28 28" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="10" cy="10" r="9.5" />
-                  <line x1="18.3536" y1="18.6464" x2="27.3536" y2="27.6464" />
-                </svg>
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-
-      </section>
-  </div>
-
-  <section class="dropdown-search p-3">
-    <div class="container">
-      <div class="row d-flex justify-content-between align-items-center">
-        <!-- <div class="col-10 hstack gap-5">
-          <div class="col-2 me-3">
-
-            <div class="dropdown">
-              <button class="btn p-3 bg-white dropdown-toggle" type="button" id="dropdown-ingredients"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Appareils
-                <svg class="dropdown-arrow" width="15" height="8" viewBox="0 0 15 8" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
-                </svg>
-
-              </button>
-
-              <ul class="dropdown-menu" aria-labelledby="dropdown-ingredients">
-                <li><a class="dropdown-item">Lait de Coco</a></li>
-                <li><a class="dropdown-item">Poulet</a></li>
-                <li><a class="dropdown-item">Riz</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="col-2 me-3">
-
-            <div class="dropdown">
-              <button class="btn p-3 bg-white dropdown-toggle" type="button" id="dropdown-appareils"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Appareils
-                <svg class="dropdown-arrow" width="15" height="8" viewBox="0 0 15 8" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
-                </svg>
-
-              </button>
-
-              <ul class="dropdown-menu" aria-labelledby="dropdown-appareils">
-                <li><a class="dropdown-item">Mixeur</a></li>
-                <li><a class="dropdown-item">Four</a></li>
-                <li><a class="dropdown-item">Hachoire</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-2 me-3">
-
-            <div class="dropdown">
-              <button class="btn p-3 bg-white dropdown-toggle" type="button" id="dropdown-ustensiles"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Ustensiles
-                <svg class="dropdown-arrow" width="15" height="8" viewBox="0 0 15 8" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L7.5 7L14 1" stroke="#1B1B1B" stroke-linecap="round" />
-                </svg>
-
-              </button>
-
-              <ul class="dropdown-menu" aria-labelledby="dropdown-ustensiles">
-                <li><a class="dropdown-item">Fourchette</a></li>
-                <li><a class="dropdown-item">Couteau</a></li>
-              </ul>
-            </div>
-          </div>
-
-        </div> -->
-        <div class="col hstack gap-5">
-          <div class="accordion col-2 me-3 align-self-start" id="accordionIngredients">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingIngredients">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseIngredients" aria-expanded="false" aria-controls="collapseIngredients">
-                  ingrédients
-                </button>
-              </h2>
-              <div id="collapseIngredients" class="accordion-collapse collapse" aria-labelledby="headingIngredients"
-                data-bs-parent="#accordionIngredients">
-                <div class="accordion-body">
-                  <ul class="list-unstyled">
-                    <li>Poulet</li>
-                    <li>Riz</li>
-                    <li>Lait de Coco</li>
-                  </ul>
+    <body>
+        <div class="bg-w100">
+            <header>
+                <nav class="navbar pb-4">
+                    <div class="container">
+                        <a
+                            class="navbar-brand"
+                            href="./index.html"
+                            aria-label="Menu principal, les petits plâts"
+                        >
+                            <img
+                                src="./assets/icons/Logo.png"
+                                alt=""
+                                class="col-8 py-5"
+                            />
+                        </a>
+                    </div>
+                </nav>
+            </header>
+            <section class="hero-section">
+                <div class="container pt-4 w-75">
+                    <div class="row mt-5">
+                        <div class="col-8 mx-auto">
+                            <h1
+                                class="hero-font py-4 text-uppercase text-center"
+                            >
+                                cherchez parmis plus de 1500 recettes du
+                                quotidien,simples et délicieuses
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cols position-relative">
+                            <label
+                                for="recipe-search"
+                                aria-describedby="recipe-search"
+                                class="visually-hidden"
+                            ></label>
+                            <input
+                                id="recipe-search"
+                                type="text"
+                                class="form-control ps-4 py-4 rounded-4"
+                                placeholder="Rechercher une recette, un ingrédient, ..."
+                                aria-label="Rechercher une recette ou un ingrédient"
+                            />
+                            <button
+                                class="search-button rounded-3 position-absolute border-0"
+                                aria-label="Cercher une recette"
+                            >
+                                <svg
+                                    class="search-button_icon rounded"
+                                    width="28"
+                                    height="28"
+                                    viewBox="0 0 28 28"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <circle cx="10" cy="10" r="9.5" />
+                                    <line
+                                        x1="18.3536"
+                                        y1="18.6464"
+                                        x2="27.3536"
+                                        y2="27.6464"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="accordion col-2 me-3 align-self-start" id="accordionAppareils">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingAppareils">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseAppareils" aria-expanded="false" aria-controls="collapseAppareils">
-                  Appareils
-                </button>
-              </h2>
-              <div id="collapseAppareils" class="accordion-collapse collapse" aria-labelledby="headingAppareils"
-                data-bs-parent="#accordionAppareils">
-                <div class="accordion-body">
-                  <ul class="list-unstyled">
-                    <li>Hachoire</li>
-                    <li>Plat</li>
-                    <li>Mortier</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="accordion col-2 me-3 align-self-start" id="accordionUstensiles">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingUstensiles">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseUstensiles" aria-expanded="false" aria-controls="collapseUstensiles">
-                  Ustensiles
-                </button>
-              </h2>
-              <div id="collapseUstensiles" class="accordion-collapse collapse" aria-labelledby="headingUstensiles"
-                data-bs-parent="#accordionUstensiles">
-                <div class="accordion-body">
-                  <ul class="list-unstyled">
-                    <li>Couteau</li>
-                    <li>Fourchette</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="col-2">
-          <p class="hero-font fs-5 mb-0 text-end">1500 recettes</p>
+            </section>
         </div>
 
-      </div>
-  </section>
-  </main>
+        <main>
+            <section class="dropdown-search p-3">
+                <div class="container">
+                    <div
+                        class="row d-flex justify-content-between align-items-center"
+                    >
+                        <div class="col hstack gap-5">
+                            <div
+                                class="accordion col-2 me-3 align-self-start"
+                                id="accordionIngredients"
+                            >
+                                <div class="accordion-item">
+                                    <h2
+                                        class="accordion-header"
+                                        id="headingIngredients"
+                                    >
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseIngredients"
+                                            aria-expanded="false"
+                                            aria-controls="collapseIngredients"
+                                        >
+                                            Ingrédients
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id="collapseIngredients"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingIngredients"
+                                        data-bs-parent="#accordionIngredients"
+                                    >
+                                        <div class="accordion-body">
+                                            <div
+                                                class="search-bar position-relative"
+                                            >
+                                                <div
+                                                    class="search-bar_input mb-3"
+                                                >
+                                                    <label
+                                                        for="searchIngredientsInput"
+                                                        class="form-label visually-hidden"
+                                                        aria-describedby="searchIngredientsInput"
+                                                    ></label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="searchIngredientsInput"
+                                                        aria-label="Entrer l'ingrédient que vous recherchez"
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="search-bar_icons position-absolute d-flex align-items-center"
+                                                >
+                                                    <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        aria-label="Close"
+                                                    ></button>
+                                                    <svg
+                                                        class=""
+                                                        width="14"
+                                                        height="14"
+                                                        viewBox="0 0 28 28"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <circle
+                                                            cx="10"
+                                                            cy="10"
+                                                            r="9.5"
+                                                            stroke="#7a7a7a"
+                                                        />
+                                                        <line
+                                                            x1="18.3536"
+                                                            y1="18.6464"
+                                                            x2="27.3536"
+                                                            y2="27.6464"
+                                                            stroke="#7a7a7a"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <ul class="list-unstyled mb-0">
+                                                <li>Poulet</li>
+                                                <li>Riz</li>
+                                                <li>Lait de Coco</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-</body>
+                            <div
+                                class="accordion col-2 me-3 align-self-start"
+                                id="accordionAppareils"
+                            >
+                                <div class="accordion-item">
+                                    <h2
+                                        class="accordion-header"
+                                        id="headingAppareils"
+                                    >
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseAppareils"
+                                            aria-expanded="false"
+                                            aria-controls="collapseAppareils"
+                                        >
+                                            Appareils
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id="collapseAppareils"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingAppareils"
+                                        data-bs-parent="#accordionAppareils"
+                                    >
+                                        <div class="accordion-body">
+                                            <div
+                                                class="search-bar row w-100 mx-auto"
+                                            >
+                                                <div
+                                                    class="col d-flex justify-content-between align-items-center ps-0 w-100 mx-auto rounded border border-1"
+                                                >
+                                                    <div
+                                                        class="search-bar_input h-100"
+                                                    >
+                                                        <label
+                                                            for="searchAppareilsInput"
+                                                            class="form-label visually-hidden"
+                                                            aria-describedby="searchAppareilsInput"
+                                                        ></label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control border-0"
+                                                            id="searchAppareilsInput"
+                                                            aria-label="Entrer l'appareil que vous recherchez"
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        class="search-bar_icons d-flex align-items-center"
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            class="btn-close"
+                                                            aria-label="Close"
+                                                        ></button>
+                                                        <svg
+                                                            class=""
+                                                            width="14"
+                                                            height="14"
+                                                            viewBox="0 0 28 28"
+                                                            fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <circle
+                                                                cx="10"
+                                                                cy="10"
+                                                                r="9.5"
+                                                                stroke="#7a7a7a"
+                                                            />
+                                                            <line
+                                                                x1="18.3536"
+                                                                y1="18.6464"
+                                                                x2="27.3536"
+                                                                y2="27.6464"
+                                                                stroke="#7a7a7a"
+                                                            />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="list-unstyled mb-0">
+                                                <li>Hachoire</li>
+                                                <li>Plat</li>
+                                                <li>Mortier</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="accordion col-2 me-3 align-self-start"
+                                id="accordionUstensiles"
+                            >
+                                <div class="accordion-item">
+                                    <h2
+                                        class="accordion-header"
+                                        id="headingUstensiles"
+                                    >
+                                        <button
+                                            class="accordion-button collapsed"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseUstensiles"
+                                            aria-expanded="false"
+                                            aria-controls="collapseUstensiles"
+                                        >
+                                            Ustensiles
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id="collapseUstensiles"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingUstensiles"
+                                        data-bs-parent="#accordionUstensiles"
+                                    >
+                                        <div class="accordion-body">
+                                            <ul class="list-unstyled mb-0">
+                                                <li>Couteau</li>
+                                                <li>Fourchette</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-2">
+                            <p class="hero-font fs-5 mb-0 text-end">
+                                1500 recettes
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
 </html>

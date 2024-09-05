@@ -1,4 +1,4 @@
-section:not(:first-child) {
+section:nth-child(-n + 1) {
     background-color: #ededed;
 }
 .bg-w100 {
@@ -54,12 +54,21 @@ h1.hero-font {
 #dropdown-ustensiles::after {
     content: none;
 }
-.dropdown-arrow {
+/* .dropdown-arrow {
     margin-left: 63px;
 }
 .dropdown-all {
     gap: 63px;
+} */
+.search-bar_icons {
+    top: 12px;
+    right: 10px;
 }
-ul {
-    margin-bottom: 0rem;
+.search-bar_icons .btn-close {
+    width: 6px;
+    height: 6px;
+    margin: 0px 10px;
+    /* border-radius: 0px; */
+    padding: 0px;
+    background-image: url(../assets/icons/Close.svg);
 }
