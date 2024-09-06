@@ -20,6 +20,10 @@ h1.hero-font {
     letter-spacing: 0.1rem;
     color: #ffd15b;
 }
+.card-title.hero-font {
+    font-size: 18px;
+}
+
 @media (min-width: 1024px) {
     h1.hero-font {
         line-height: 4rem;
