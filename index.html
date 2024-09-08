@@ -109,12 +109,12 @@
         </div>
 
         <main>
-            <section class="dropdown-search p-3 mb-5">
-                <div class="container">
+            <div class="container px-5">
+                <section class="dropdown-search p-3 mb-3">
                     <div
                         class="row d-flex justify-content-between align-items-center"
                     >
-                        <div class="col hstack gap-5">
+                        <div class="col hstack gap-5 px-0">
                             <div
                                 class="accordion col-2 me-3 align-self-start"
                                 id="accordionIngredients"
@@ -335,29 +335,33 @@
                             </p>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="card-recepies">
-                <div class="container">
-                    <div class="row row-cols-3">
-                        <article>
-                            <div class="card">
+                </section>
+                <section class="card-recepies">
+                    <div class="row">
+                        <article class="col-4 p-4 mb-3">
+                            <div
+                                class="card rounded-4 overflow-hidden position-relative"
+                            >
                                 <img
-                                    style="width: 380px; height: 253px"
                                     src="./assets/photos/Recette01.jpg"
-                                    class="card-img-top object-fit-cover w-100"
+                                    class="card-img-top object-fit-cover w-100 mb-2"
                                     alt="Limonade de Coco"
                                 />
-                                <div class="card-body">
-                                    <h2 class="card-title hero-font mb-5">
+                                <div
+                                    class="card-time position-absolute rounded rounded-pill px-3 py-1"
+                                >
+                                    10min
+                                </div>
+                                <div class="card-body p-4 mb-3">
+                                    <h2 class="card-title hero-font mb-4">
                                         Limonade de Coco
                                     </h2>
                                     <h3
-                                        class="card-subtitle text-uppercase mb-3 text-body-secondary"
+                                        class="card-subtitle text-uppercase py-2"
                                     >
                                         Recette
                                     </h3>
-                                    <p class="card-text">
+                                    <p class="card-text py-2 mb-4">
                                         Mettre les glaçons à votre goût dans le
                                         blender, ajouter le lait, la crème de
                                         coco, le jus de 2 citrons et le sucre.
@@ -365,7 +369,7 @@
                                         désirée
                                     </p>
                                     <h3
-                                        class="card-subtitle text-uppercase mb-3 text-body-secondary"
+                                        class="card-subtitle text-uppercase mb-2 py-2 fw-semibold"
                                     >
                                         Ingrédients
                                     </h3>
@@ -375,7 +379,7 @@
                                                 Lait de coco
                                             </p>
                                             <p
-                                                class="d-block text-body-secondary"
+                                                class="d-block text-body-secondary mb-4"
                                             >
                                                 400ml
                                             </p>
@@ -384,94 +388,18 @@
                                             <p class="d-block mb-0 fw-medium">
                                                 Jus de citron
                                             </p>
-                                            <p class="d-block fw-medium">2</p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Creme de coco
-                                            </p>
                                             <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                2 cuilleres
-                                            </p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Sucre
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                20g
-                                            </p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Glacons
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
+                                                class="d-block text-body-secondary mb-4"
                                             >
                                                 2
                                             </p>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="card">
-                                <img
-                                    style="width: 380px; height: 253px"
-                                    src="./assets/photos/Recette01.jpg"
-                                    class="card-img-top object-fit-cover w-100"
-                                    alt="Limonade de Coco"
-                                />
-                                <div class="card-body">
-                                    <h2 class="card-title hero-font mb-5">
-                                        Limonade de Coco
-                                    </h2>
-                                    <h3
-                                        class="card-subtitle text-uppercase mb-3 text-body-secondary"
-                                    >
-                                        Recette
-                                    </h3>
-                                    <p class="card-text">
-                                        Mettre les glaçons à votre goût dans le
-                                        blender, ajouter le lait, la crème de
-                                        coco, le jus de 2 citrons et le sucre.
-                                        Mixer jusqu'à avoir la consistence
-                                        désirée
-                                    </p>
-                                    <h3
-                                        class="card-subtitle text-uppercase mb-3 text-body-secondary"
-                                    >
-                                        Ingrédients
-                                    </h3>
-                                    <div class="row row-cols-2">
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Lait de coco
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                400ml
-                                            </p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Jus de citron
-                                            </p>
-                                            <p class="d-block fw-medium">2</p>
-                                        </div>
                                         <div class="col card-text">
                                             <p class="d-block mb-0 fw-medium">
                                                 Creme de coco
                                             </p>
                                             <p
-                                                class="d-block text-body-secondary"
+                                                class="d-block text-body-secondary mb-4"
                                             >
                                                 2 cuilleres
                                             </p>
@@ -491,87 +419,7 @@
                                                 Glacons
                                             </p>
                                             <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                2
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="card">
-                                <img
-                                    style="width: 380px; height: 253px"
-                                    src="./assets/photos/Recette01.jpg"
-                                    class="card-img-top object-fit-cover w-100"
-                                    alt="Limonade de Coco"
-                                />
-                                <div class="card-body">
-                                    <h2 class="card-title hero-font mb-5">
-                                        Limonade de Coco
-                                    </h2>
-                                    <h3
-                                        class="card-subtitle text-uppercase mb-3 text-body-secondary"
-                                    >
-                                        Recette
-                                    </h3>
-                                    <p class="card-text">
-                                        Mettre les glaçons à votre goût dans le
-                                        blender, ajouter le lait, la crème de
-                                        coco, le jus de 2 citrons et le sucre.
-                                        Mixer jusqu'à avoir la consistence
-                                        désirée
-                                    </p>
-                                    <h3
-                                        class="card-subtitle text-uppercase mb-3 text-body-secondary"
-                                    >
-                                        Ingrédients
-                                    </h3>
-                                    <div class="row row-cols-2">
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Lait de coco
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                400ml
-                                            </p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Jus de citron
-                                            </p>
-                                            <p class="d-block fw-medium">2</p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Creme de coco
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                2 cuilleres
-                                            </p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Sucre
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
-                                            >
-                                                20g
-                                            </p>
-                                        </div>
-                                        <div class="col card-text">
-                                            <p class="d-block mb-0 fw-medium">
-                                                Glacons
-                                            </p>
-                                            <p
-                                                class="d-block text-body-secondary"
+                                                class="d-block text-body-secondary mb-4"
                                             >
                                                 2
                                             </p>
@@ -581,8 +429,8 @@
                             </div>
                         </article>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </main>
     </body>
 </html>
