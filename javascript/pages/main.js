@@ -5,28 +5,23 @@ import { recipes } from "../../data/recipes.js";
 const displayEl = document.querySelector(".card-recipes .row");
 
 console.log(recipes);
-
 /**
- *
- * @param {Array} recipeObj
+ * Generate and format the list of ingredients for the html recipes cards
+ * @param {Array<object>} ingredients
+ * @returns {string}
  */
-function createRecipeCard(recipeObj) {
-    /**
-     *
-     * @param {Array} ingredients
-     * @returns {string}
-     */
-    function generateIngredientsHtml(ingredients) {
-        const ingredientsCardDiv = document.createElement("div");
-        ingredientsCardDiv.className = "row row-cols-2";
+function generateIngredientsHtml(ingredients) {
+    const ingredientsCardDiv = document.createElement("div");
+    ingredientsCardDiv.className = "row row-cols-2";
 
-        ingredients.forEach((ingredient) => {
-            const ingredientDiv = document.createElement("div");
-            ingredientDiv.className = "col card-text";
+    ingredients.forEach((ingredient) => {
+        const ingredientDiv = document.createElement("div");
+        ingredientDiv.className = "col card-text";
 
-            const ingredientDivHtml = `
-                                            <p class="d-block mb-0 fw-medium">
-                                               ${ingredient.ingredient}
+        const ingredientDivHtml = `
+                                            <p class="d-block mb-0 fw-medium">${
+                                                ingredient.ingredient
+                                            }
                                             </p>
                                             <p
                                                 class="d-block text-body-secondary mb-4"
@@ -34,13 +29,19 @@ function createRecipeCard(recipeObj) {
 ${ingredient.quantity || ""}${ingredient.unit || ""}
                                             </p>
     `;
-            ingredientDiv.innerHTML = ingredientDivHtml;
-            ingredientsCardDiv.appendChild(ingredientDiv);
-        });
+        ingredientDiv.innerHTML = ingredientDivHtml;
+        ingredientsCardDiv.appendChild(ingredientDiv);
+    });
 
-        return ingredientsCardDiv.outerHTML;
-    }
+    return ingredientsCardDiv.outerHTML;
+}
 
+/**
+ * Generate all card of the given recipe array
+ * @param {Array<object>} recipeObj
+ * @returns {HTMLElemnt}
+ */
+function generateRecipesCard(recipeObj) {
     // Building the card in a <article>
     const recipeCard = document.createElement("article");
     const recipeIngredientsHtml = generateIngredientsHtml(
@@ -90,7 +91,7 @@ ${ingredient.quantity || ""}${ingredient.unit || ""}
 function displayDefaultLayout(array) {
     for (let index = 0; index < 10; index++) {
         const recipe = array[index];
-        createRecipeCard(recipe);
+        generateRecipesCard(recipe);
     }
 }
 displayDefaultLayout(recipes);
