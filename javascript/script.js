@@ -158,6 +158,6 @@ function getAllIngredients2(recipes) {
         )
     );
 
-    console.log(ingredientsArray);
+    // console.log(ingredientsArray);
 }
 getAllIngredients2(recipes);
