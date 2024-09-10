@@ -1,10 +1,11 @@
-import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
 import { recipes } from "../../data/recipes.js";
+import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
 
 // Dom Element (El)
 const displayEl = document.querySelector(".card-recipes .row");
 
 console.log(recipes);
+
 /**
  * Generate and format the list of ingredients for the html recipes cards
  * @param {Array<object>} ingredients
@@ -42,8 +43,7 @@ ${ingredient.quantity || ""}${ingredient.unit || ""}
  * @returns {HTMLElemnt}
  */
 function generateRecipesCard(recipeObj) {
-    // Building the card in a <article>
-    const recipeCard = document.createElement("article");
+    // Building the HTML code
     const recipeIngredientsHtml = generateIngredientsHtml(
         recipeObj.ingredients
     );
@@ -82,12 +82,17 @@ function generateRecipesCard(recipeObj) {
                                 </div>
                             </div>
 `;
+    // Building and adding the card to the page
+    const recipeCard = document.createElement("article");
     recipeCard.className = "col-4 p-4 mb-3";
     recipeCard.innerHTML = recipeCardHtml;
-
     displayEl.appendChild(recipeCard);
 }
 
+/**
+ * Display the first 10 recipes of the json file
+ * @param {Array} array
+ */
 function displayDefaultLayout(array) {
     for (let index = 0; index < 10; index++) {
         const recipe = array[index];
