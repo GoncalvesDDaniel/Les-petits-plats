@@ -1,6 +1,13 @@
 //Import modules
 import { recipes } from "../../data/recipes.js";
 
+// Export const
+export const listOfUniqueIngredients = getUniqueValues(
+    getAllIngredients(recipes)
+);
+export const listOfUniqueAppliance = getUniqueValues(getAllAppliance(recipes));
+export const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
+
 // JSDOC - define the format of the database
 /**
  * @typedef Recipe
@@ -75,5 +82,47 @@ function getUniqueValues(array) {
     });
     return uniqueValues;
 }
-console.log(getAllUstensils(recipes));
-console.log(getUniqueValues(getAllUstensils(recipes)));
+
+// function searchByIngredients(ingredient) {}
+// function searchByDropdowns(ingredient) {}
+export function liListener() {
+    document.querySelectorAll(".list_unselected li").forEach((li) => {
+        if (!li) return;
+        else {
+            li.addEventListener("click", (event) => tagOnDropdowns(event));
+        }
+    });
+}
+/**
+ *
+ * @param {HTMLElement} liElement
+ */
+function tagOnDropdowns(liElement) {
+    // Define the list clicked in lowerCase
+    let currentListName = liElement.currentTarget.parentElement.dataset.list;
+    let highlightUlEl = document.querySelector(
+        `.list-${currentListName}_selected`
+    );
+
+    //create new li and copy the li clicked to the highlight ul
+    let highlightLi = document.createElement("li");
+    highlightLi.className =
+        "d-flex justify-content-between w-100 align-items-center";
+    // copy the HTML without display none on the close btn
+    highlightLi.innerHTML = liElement.currentTarget.innerHTML.replace(
+        "d-none",
+        ""
+    );
+    highlightUlEl.appendChild(highlightLi);
+
+    // li clicked no more avaliable
+    liElement.currentTarget.classList.add("d-none");
+
+    // console.log(liElement.currentTarget.classList);
+    // console.log(liElement.currentTarget.parentElement.dataset.list);
+    // console.log(liElement.currentTarget.innerHTML.replace("d-none", ""));
+    // if (divId.classList.contains("collapsed")) {
+    //     console.log("fermee");
+    // } else console.log("ouvert");
+}
+liListener();

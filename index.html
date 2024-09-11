@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Les petits plats</title>
         <link rel="stylesheet" href="./css/styles.css" />
-        <script defer type="module" src="./javascript/pages/main.js"></script>
         <script defer type="module" src="./javascript/utils/search.js"></script>
+        <script defer type="module" src="./javascript/pages/main.js"></script>
 
         <!-- bootstrap css and icons -->
         <link
@@ -111,9 +111,11 @@
 
         <main>
             <div class="container px-5">
-                <section class="dropdown-search py-3 px-4 mb-3">
+                <section
+                    class="dropdown-search py-3 px-2 d-flex flex-column gap-3"
+                >
                     <div
-                        class="row d-flex justify-content-between align-items-center"
+                        class="row d-flex justify-content-between align-items-center m-0"
                     >
                         <div class="col-7 hstack gap-5 px-0">
                             <div
@@ -138,7 +140,7 @@
                                     </h2>
                                     <div
                                         id="collapseIngredients"
-                                        class="accordion-collapse collapse position-absolute z-1 bg-white rounded-end rounded-2"
+                                        class="accordion-collapse collapse position-absolute w-100 z-1 bg-white overflow-y-scroll overflow-x-hidden"
                                         aria-labelledby="headingIngredients"
                                         data-bs-parent="#accordionIngredients"
                                     >
@@ -197,7 +199,8 @@
                                                 class="list-unstyled list-ingredients_selected list_selected"
                                             ></ul>
                                             <ul
-                                                class="list-unstyled list-ingredients mb-0"
+                                                class="list-unstyled list_unselected list-ingredients mb-0"
+                                                data-list="ingredients"
                                             ></ul>
                                         </div>
                                     </div>
@@ -226,7 +229,7 @@
                                     </h2>
                                     <div
                                         id="collapseAppareils"
-                                        class="accordion-collapse collapse position-absolute z-1 bg-white rounded-end rounded-2"
+                                        class="accordion-collapse collapse position-absolute w-100 z-1 bg-white overflow-y-scroll"
                                         aria-labelledby="headingAppareils"
                                         data-bs-parent="#accordionAppareils"
                                     >
@@ -282,10 +285,11 @@
                                                 </div>
                                             </div>
                                             <ul
-                                                class="list-unstyled list-appareils_selected list_selected"
+                                                class="list-unstyled list-appliance_selected list_selected"
                                             ></ul>
                                             <ul
-                                                class="list-unstyled list-appareils mb-0"
+                                                class="list-unstyled list_unselected list-appliance mb-0"
+                                                data-list="appliance"
                                             ></ul>
                                         </div>
                                     </div>
@@ -313,7 +317,7 @@
                                     </h2>
                                     <div
                                         id="collapseUstensils"
-                                        class="accordion-collapse collapse position-absolute z-1 bg-white rounded-end rounded-2"
+                                        class="accordion-collapse collapse position-absolute z-1 w-100 bg-white overflow-y-scroll"
                                         aria-labelledby="headingUstensils"
                                         data-bs-parent="#accordionUstensils"
                                     >
@@ -370,34 +374,11 @@
                                             </div>
                                             <ul
                                                 class="list-unstyled list-ustensils_selected list_selected"
-                                            >
-                                                <li
-                                                    class="d-flex justify-content-between w-100"
-                                                >
-                                                    <p class="col mb-0">
-                                                        Poulet
-                                                    </p>
-                                                    <button
-                                                        class="btn btn-close"
-                                                    ></button>
-                                                </li>
-                                                <li
-                                                    class="d-flex justify-content-between w-100"
-                                                >
-                                                    <p class="col mb-0">
-                                                        Poulet
-                                                    </p>
-                                                    <button
-                                                        class="btn btn-close"
-                                                    ></button>
-                                                </li>
-                                            </ul>
+                                            ></ul>
                                             <ul
-                                                class="list-unstyled list-ustensils mb-0"
-                                            >
-                                                <li class="mb-3">Couteau</li>
-                                                <li class="mb-3">Fourchette</li>
-                                            </ul>
+                                                class="list_unselected list-unstyled list-ustensils mb-0"
+                                                data-list="ustensils"
+                                            ></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -409,6 +390,23 @@
                             </p>
                         </div>
                     </div>
+                    <ul
+                        class="row dropdown-tag list-unstyled list-tag m-0"
+                        data-list="tag"
+                    >
+                        <li
+                            class="col p-3 me-4 rounded rounded-3 d-flex justify-content-between align-items-center d-flex justify-content-between w-100 align-items-center"
+                        >
+                            <p class="mb-0">Cuillère à soupe</p>
+                            <button class="btn btn-close"></button>
+                        </li>
+                        <li
+                            class="col p-3 me-4 rounded rounded-3 d-flex justify-content-between align-items-center d-flex justify-content-between w-100 align-items-center"
+                        >
+                            <p class="mb-0">Cuillère à soupe</p>
+                            <button class="btn btn-close"></button>
+                        </li>
+                    </ul>
                 </section>
                 <section class="card-recipes">
                     <div class="row"></div>

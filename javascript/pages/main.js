@@ -1,17 +1,51 @@
 import { recipes } from "../../data/recipes.js";
-import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
+import { liListener } from "../utils/search.js";
+import {
+    listOfUniqueIngredients,
+    listOfUniqueAppliance,
+    listOfUniqueUstensils,
+} from "../utils/search.js";
+// import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
 
 // Dom Element (El)
 const displayEl = document.querySelector(".card-recipes .row");
 
-console.log(recipes);
+// console.log(recipes);
 
+// Function for the display of dropdown section
+/**
+ *
+ * @param {string[]} array - An array of unique values to display in the dropdown
+ * @param {string} dropdownName - Name has to mach html class ('ingredients', 'appliance' or 'ustensils')
+ */
+function generateDropdownHtml(array, dropdownName) {
+    let dropdownEl = document.querySelector(`.list-${dropdownName}`);
+    const firstLetterRegex = /^[a-z]/;
+    let dropdownListHtml = array
+        .map((uncapitalizeString) =>
+            uncapitalizeString.replace(
+                firstLetterRegex,
+                uncapitalizeString[0].toUpperCase()
+            )
+        )
+        .map(
+            (capitalizeElement) =>
+                ` <li class="d-flex justify-content-between  w-100" > 
+                    <p class="mb-0">${capitalizeElement}</p>
+                    <button class="btn  btn-close d-none" ></button>
+                </li>`
+        );
+
+    dropdownEl.innerHTML = dropdownListHtml.join("");
+}
+
+// Function for the display of card section
 /**
  * Generate and format the list of ingredients for the html recipes cards
  * @param {Array<object>} ingredients
  * @returns {string}
  */
-function generateIngredientsHtml(ingredients) {
+function generateIngredientsCardHtml(ingredients) {
     const ingredientsCardDiv = document.createElement("div");
     ingredientsCardDiv.className = "row row-cols-2";
 
@@ -44,7 +78,7 @@ ${ingredient.quantity || ""}${ingredient.unit || ""}
  */
 function generateRecipesCard(recipeObj) {
     // Building the HTML code
-    const recipeIngredientsHtml = generateIngredientsHtml(
+    const recipeIngredientsHtml = generateIngredientsCardHtml(
         recipeObj.ingredients
     );
     const recipeCardHtml = `
@@ -99,4 +133,16 @@ function displayDefaultLayout(array) {
         generateRecipesCard(recipe);
     }
 }
-displayDefaultLayout(recipes);
+
+/**
+ *
+ */
+function init() {
+    displayDefaultLayout(recipes);
+    generateDropdownHtml(listOfUniqueIngredients, "ingredients");
+    generateDropdownHtml(listOfUniqueAppliance, "appliance");
+    generateDropdownHtml(listOfUniqueUstensils, "ustensils");
+    liListener();
+}
+
+init();
