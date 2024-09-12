@@ -68,42 +68,29 @@
                             </h1>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="cols position-relative">
-                            <label
-                                for="recipe-search"
-                                aria-describedby="recipe-search"
-                                class="visually-hidden"
-                            ></label>
-                            <input
-                                id="recipe-search"
-                                type="text"
-                                class="form-control ps-4 py-4 rounded-4"
-                                placeholder="Rechercher une recette, un ingrédient, ..."
-                                aria-label="Rechercher une recette ou un ingrédient"
-                            />
-                            <button
-                                class="search-button rounded-3 position-absolute border-0"
-                                aria-label="Cercher une recette"
-                            >
-                                <svg
-                                    class="search-button_icon rounded"
-                                    width="28"
-                                    height="28"
-                                    viewBox="0 0 28 28"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle cx="10" cy="10" r="9.5" />
-                                    <line
-                                        x1="18.3536"
-                                        y1="18.6464"
-                                        x2="27.3536"
-                                        y2="27.6464"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
+                    <div
+                        class="hero-input row position-relative align-items-center justify-content-between"
+                    >
+                        <label
+                            for="recipe-search"
+                            aria-describedby="recipe-search"
+                            class="visually-hidden"
+                        ></label>
+                        <input
+                            id="recipe-search"
+                            type="text"
+                            class="form-control ps-4 py-4 rounded-4 col-12"
+                            placeholder="Rechercher une recette, un ingrédient, ..."
+                            aria-label="Rechercher une recette ou un ingrédient"
+                        />
+                        <div
+                            class="btn btn-close d-none position-absolute"
+                            data-btn="clear"
+                        ></div>
+                        <button
+                            class="search-button rounded-3 border-0 position-absolute"
+                            aria-label="Cercher une recette"
+                        ></button>
                     </div>
                 </div>
             </section>
@@ -149,7 +136,7 @@
                                                 class="search-bar position-relative"
                                             >
                                                 <div
-                                                    class="search-bar_input mb-3"
+                                                    class="search-bar_input mb-3 d-flex align-items-center"
                                                 >
                                                     <label
                                                         for="searchIngredientsInput"
@@ -169,6 +156,7 @@
                                                     <button
                                                         type="button"
                                                         class="btn-close"
+                                                        data-btn="clear"
                                                         aria-label="Close"
                                                     ></button>
                                                     <svg
@@ -238,7 +226,7 @@
                                                 class="search-bar position-relative"
                                             >
                                                 <div
-                                                    class="search-bar_input mb-3"
+                                                    class="search-bar_input mb-3 d-flex align-items-center"
                                                 >
                                                     <label
                                                         for="searchAppareilsInput"
@@ -258,6 +246,7 @@
                                                     <button
                                                         type="button"
                                                         class="btn-close"
+                                                        data-btn="clear"
                                                         aria-label="Close"
                                                     ></button>
                                                     <svg
@@ -326,7 +315,7 @@
                                                 class="search-bar position-relative"
                                             >
                                                 <div
-                                                    class="search-bar_input mb-3"
+                                                    class="search-bar_input mb-3 d-flex align-items-center"
                                                 >
                                                     <label
                                                         for="searchUstensilsInput"
@@ -346,6 +335,7 @@
                                                     <button
                                                         type="button"
                                                         class="btn-close"
+                                                        data-btn="clear"
                                                         aria-label="Close"
                                                     ></button>
                                                     <svg
@@ -393,20 +383,7 @@
                     <ul
                         class="row dropdown-tag list-unstyled list-tag m-0"
                         data-list="tag"
-                    >
-                        <li
-                            class="col p-3 me-4 rounded rounded-3 d-flex justify-content-between align-items-center d-flex justify-content-between w-100 align-items-center"
-                        >
-                            <p class="mb-0">Cuillère à soupe</p>
-                            <button class="btn btn-close"></button>
-                        </li>
-                        <li
-                            class="col p-3 me-4 rounded rounded-3 d-flex justify-content-between align-items-center d-flex justify-content-between w-100 align-items-center"
-                        >
-                            <p class="mb-0">Cuillère à soupe</p>
-                            <button class="btn btn-close"></button>
-                        </li>
-                    </ul>
+                    ></ul>
                 </section>
                 <section class="card-recipes">
                     <div class="row"></div>

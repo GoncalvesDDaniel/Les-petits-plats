@@ -1,5 +1,5 @@
 import { recipes } from "../../data/recipes.js";
-import { liListener } from "../utils/search.js";
+import { liListener, closeTagListener } from "../utils/search.js";
 import {
     listOfUniqueIngredients,
     listOfUniqueAppliance,
@@ -30,9 +30,8 @@ function generateDropdownHtml(array, dropdownName) {
         )
         .map(
             (capitalizeElement) =>
-                ` <li class="d-flex justify-content-between  w-100" > 
-                    <p class="mb-0">${capitalizeElement}</p>
-                    <button class="btn  btn-close d-none" ></button>
+                ` <li name="${capitalizeElement}" > 
+                    <p class="mb-0" >${capitalizeElement}</p>
                 </li>`
         );
 
@@ -143,6 +142,7 @@ function init() {
     generateDropdownHtml(listOfUniqueAppliance, "appliance");
     generateDropdownHtml(listOfUniqueUstensils, "ustensils");
     liListener();
+    // btnCloseTagListener();
 }
 
 init();

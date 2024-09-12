@@ -8,9 +8,15 @@ main {
     background-size: cover;
     background-attachment: local;
 }
-#recipe-search {
-    margin-bottom: 173px;
+.hero-input {
+    padding-bottom: 173px;
 }
+#recipe-search {
+    padding-right: 120px;
+}
+/* .hero-section .btn-close {
+    top: ;
+} */
 .hero-font {
     font-family: "Anton", sans-serif;
     font-weight: 400;
@@ -25,9 +31,11 @@ h1.hero-font {
         line-height: 4rem;
     }
 }
-.dropdown-tag .col {
+.dropdown-tag li {
     background-color: #ffd15b;
     max-width: fit-content;
+    padding: 18px;
+    border-radius: 0.375rem;
 }
 .dropdown-tag .btn-close {
     background-size: 60%;
@@ -35,6 +43,7 @@ h1.hero-font {
 }
 
 .dropdown-tag p {
+    font-size: 14px;
     margin-right: 60px;
 }
 .accordion-button:not(.collapsed) {
@@ -113,10 +122,21 @@ h3.card-subtitle {
     height: 253px;
 }
 .search-button {
+    background-image: url(../assets/icons/Magnificient-glasse.svg);
+    background-repeat: no-repeat;
     background-color: #1b1b1b;
-    padding: 0.7rem;
-    top: 12px;
-    right: 23px;
+    background-size: 28px;
+    background-position: center;
+    padding: 12px;
+}
+button.search-button {
+    width: 51px;
+    height: 51px;
+    right: 10px;
+    top: 10px;
+}
+.hero-input .btn-close {
+    right: 82px;
 }
 .search-button:hover {
     background-color: #ffd15b;
@@ -152,10 +172,16 @@ h3.card-subtitle {
     right: 10px;
 }
 .search-bar_icons .btn-close {
+    /* border-radius: 0px; */
+    padding: 0px;
+    background-size: 60%;
+    margin-right: 8px;
+}
+/* .search-bar_icons .btn-close {
     width: 6px;
     height: 6px;
     margin: 0px 10px;
-    /* border-radius: 0px; */
+    border-radius: 0px;
     padding: 0px;
     background-image: url(../assets/icons/Close.svg);
-}
+} */

@@ -29,6 +29,9 @@ export const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
  * @property {string=} unit - Unit of the quantity
  */
 
+//Dom Element (El)
+const ulHighlightTagEl = document.querySelector(".dropdown-tag");
+
 //Functions
 /**
  *Extrate all ingredients of the data and return an array with duplicate ingredients
@@ -93,6 +96,17 @@ export function liListener() {
         }
     });
 }
+export function btnClearTextListener() {
+    document.querySelectorAll(".btn-close[data-btn=clear]").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            if (event.currentTarget !== btn) return;
+            console.log(event.currentTarget);
+        });
+    });
+}
+
+const searchOptions = {};
+
 /**
  *
  * @param {HTMLElement} liElement
@@ -104,25 +118,63 @@ function tagOnDropdowns(liElement) {
         `.list-${currentListName}_selected`
     );
 
-    //create new li and copy the li clicked to the highlight ul
-    let highlightLi = document.createElement("li");
-    highlightLi.className =
-        "d-flex justify-content-between w-100 align-items-center";
+    //Highlight inside dropdown menu
+
+    //create new li and copy the text for the highlight ul
+    const highlightLi = document.createElement("li");
+    const highlightLiClass =
+        "d-flex justify-content-between align-items-center";
+    highlightLi.className = highlightLiClass;
+    const hightlightBtnHtml =
+        '<button class="btn  btn-close" data-btn="tag"></button>';
+
+    highlightLi.setAttribute("name", `${liElement.currentTarget.innerText}`);
     // copy the HTML without display none on the close btn
-    highlightLi.innerHTML = liElement.currentTarget.innerHTML.replace(
-        "d-none",
-        ""
-    );
+    highlightLi.innerHTML = `
+    ${liElement.currentTarget.innerHTML}
+   ${hightlightBtnHtml} 
+    `;
     highlightUlEl.appendChild(highlightLi);
+
+    //Highlight as individual tag
+
+    let highlightTag = document.createElement("li");
+    highlightTag.className =
+        "d-flex justify-content-between align-items-center col p-3 me-4 rounded rounded-3  w-100";
+    highlightTag.setAttribute("name", `${liElement.currentTarget.innerText}`);
+    // copy the HTML without display none on the close btn
+    highlightTag.innerHTML = `
+    ${liElement.currentTarget.innerHTML}
+    <button class="btn  btn-close" data-btn="tag"></button>
+    `;
+    ulHighlightTagEl.appendChild(highlightTag);
 
     // li clicked no more avaliable
     liElement.currentTarget.classList.add("d-none");
 
-    // console.log(liElement.currentTarget.classList);
-    // console.log(liElement.currentTarget.parentElement.dataset.list);
-    // console.log(liElement.currentTarget.innerHTML.replace("d-none", ""));
-    // if (divId.classList.contains("collapsed")) {
-    //     console.log("fermee");
-    // } else console.log("ouvert");
+    // add the tag to le search array
+
+    closeTagListener();
 }
-liListener();
+export function closeTagListener() {
+    document.querySelectorAll(".btn-close[data-btn=tag]").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            if (event.currentTarget !== btn) return;
+            else closeTag(event.currentTarget);
+        });
+    });
+}
+function closeTag(btnEl) {
+    // console.log(btnEl.parentNode.parentNode);
+    // console.log(btnEl.previousElementSibling.innerText);
+    let elToClose = document.querySelectorAll(
+        `li[name="${btnEl.previousElementSibling.innerText}"]`
+    );
+    console.log(elToClose);
+    elToClose.forEach((highlightEl) => highlightEl.remove());
+    // btnEl.parentNode.remove();
+}
+// liListener();
+function closeHighlight() {
+    console.log("yo");
+}
