@@ -10,32 +10,25 @@ export const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
 
 // JSDOC - define the format of the database
 /**
- * @typedef Recipe
- * @type {object}
- * @property {number} id - Id of the recipe
- * @property {string} image - Name of the image file
- * @property {string} name - Name of the recipe
- * @property {ingredients[]} ingredients - List of the ingredients needed
- * @property {number} time - Estimate time of the recipe
- * @property {string} description - Description of the recipe
- * @property {string} appliance - Apppliance needed for the recipe
- * @property {string[]} ustensils - Ustensils needed for the recipe
+ * @typedef {{
+ * id:number,
+ * image:string,
+ * name:string,
+ * ingredients:{ingredient:string,quantity:number|undefined,units:string|undefined}[],
+ * time:string,
+ * description:string,
+ * appliance:string,
+ * ustensils:string[]
+ * }[]} recipes
+ *
  */
-/**
- * @typedef ingredients
- * @type {object}
- * @property {string} ingredient - Name of the ingredient
- * @property {number=} quantity - Quantity needed for the recipe
- * @property {string=} unit - Unit of the quantity
- */
-
 //Dom Element (El)
 const ulHighlightTagEl = document.querySelector(".dropdown-tag");
 
 //Functions
 /**
  *Extrate all ingredients of the data and return an array with duplicate ingredients
- * @param {Recipe[]} array - Recipe list from the data base
+ * @param {recipes} array - Recipe list from the data base
  * @returns {string[]}
  */
 function getAllIngredients(array) {
@@ -51,7 +44,7 @@ function getAllIngredients(array) {
 
 /**
  * Extrate all appliances of the data and return an array with duplicate appliances
- * @param {Recipe[]} array - Recipe list from data base
+ * @param {recipes} array - Recipe list from data base
  * @returns {string[]}
  */
 function getAllAppliance(array) {
@@ -62,7 +55,7 @@ function getAllAppliance(array) {
 
 /**
  *
- * @param {Recipe[]} array
+ * @param {recipes} array
  */
 function getAllUstensils(array) {
     let allUstensils = [];
@@ -104,8 +97,14 @@ export function btnClearTextListener() {
         });
     });
 }
+/**
+ * @typedef {object[]} searchOptions
+ * @property {string} searchOptions[].origin
+ * @property {string} searchOptions[].value
+ */
 
-const searchOptions = {};
+// penser a utiliser le destructuring function({origin , value})
+const searchOptions = [];
 
 /**
  *
