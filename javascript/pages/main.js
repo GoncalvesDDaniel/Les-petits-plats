@@ -18,7 +18,7 @@ const displayEl = document.querySelector(".card-recipes .row");
  * @param {string[]} array - An array of unique values to display in the dropdown
  * @param {string} dropdownName - Name has to mach html class ('ingredients', 'appliance' or 'ustensils')
  */
-function generateDropdownHtml(array, dropdownName) {
+export function generateDropdownHtml(array, dropdownName) {
     let dropdownEl = document.querySelector(`.list-${dropdownName}`);
     const firstLetterRegex = /^[a-z]/;
     let dropdownListHtml = array
@@ -44,7 +44,7 @@ function generateDropdownHtml(array, dropdownName) {
  * @param {Array<object>} ingredients
  * @returns {string}
  */
-function generateIngredientsCardHtml(ingredients) {
+export function generateIngredientsCardHtml(ingredients) {
     const ingredientsCardDiv = document.createElement("div");
     ingredientsCardDiv.className = "row row-cols-2";
 

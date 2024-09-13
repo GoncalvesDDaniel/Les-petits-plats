@@ -1,5 +1,6 @@
 //Import modules
 import { recipes } from "../../data/recipes.js";
+import { generateDropdownHtml } from "../pages/main.js";
 
 // Export const
 export const listOfUniqueIngredients = getUniqueValues(
@@ -68,7 +69,8 @@ function getAllUstensils(array) {
 /**
  * Take an array of string with duplicate and return with unique values
  * @param {string[]} array
- * @returns {string[]}6*/
+ * @returns {string[]}
+ * */
 function getUniqueValues(array) {
     let uniqueValues = [];
     array.forEach((element) => {
@@ -97,14 +99,6 @@ export function btnClearTextListener() {
         });
     });
 }
-/**
- * @typedef {object[]} searchOptions
- * @property {string} searchOptions[].origin
- * @property {string} searchOptions[].value
- */
-
-// penser a utiliser le destructuring function({origin , value})
-const searchOptions = [];
 
 /**
  *
@@ -113,40 +107,31 @@ const searchOptions = [];
 function tagOnDropdowns(liElement) {
     // Define the list clicked in lowerCase
     let currentListName = liElement.currentTarget.parentElement.dataset.list;
+    let currentOptionName = liElement.currentTarget.innerText;
+
     let highlightUlEl = document.querySelector(
         `.list-${currentListName}_selected`
     );
 
-    //Highlight inside dropdown menu
-
-    //create new li and copy the text for the highlight ul
-    const highlightLi = document.createElement("li");
     const highlightLiClass =
         "d-flex justify-content-between align-items-center";
-    highlightLi.className = highlightLiClass;
     const hightlightBtnHtml =
         '<button class="btn  btn-close" data-btn="tag"></button>';
 
-    highlightLi.setAttribute("name", `${liElement.currentTarget.innerText}`);
+    //create new li and copy the text for the highlight ul
+    const highlightLi = document.createElement("li");
+
+    highlightLi.className = highlightLiClass;
+    highlightLi.setAttribute("name", currentOptionName);
     // copy the HTML without display none on the close btn
-    highlightLi.innerHTML = `
-    ${liElement.currentTarget.innerHTML}
-   ${hightlightBtnHtml} 
-    `;
+    highlightLi.innerHTML = ` ${liElement.currentTarget.innerHTML} ${hightlightBtnHtml} `;
     highlightUlEl.appendChild(highlightLi);
 
-    //Highlight as individual tag
-
-    let highlightTag = document.createElement("li");
-    highlightTag.className =
-        "d-flex justify-content-between align-items-center col p-3 me-4 rounded rounded-3  w-100";
-    highlightTag.setAttribute("name", `${liElement.currentTarget.innerText}`);
-    // copy the HTML without display none on the close btn
-    highlightTag.innerHTML = `
-    ${liElement.currentTarget.innerHTML}
-    <button class="btn  btn-close" data-btn="tag"></button>
-    `;
-    ulHighlightTagEl.appendChild(highlightTag);
+    const highlightLiTag = document.createElement("li");
+    highlightLiTag.className = highlightLiClass;
+    highlightLiTag.setAttribute("name", `${liElement.currentTarget.innerText}`);
+    highlightLiTag.innerHTML = ` ${liElement.currentTarget.innerHTML} ${hightlightBtnHtml} `;
+    ulHighlightTagEl.appendChild(highlightLiTag);
 
     // li clicked no more avaliable
     liElement.currentTarget.classList.add("d-none");
@@ -173,7 +158,35 @@ function closeTag(btnEl) {
     elToClose.forEach((highlightEl) => highlightEl.remove());
     // btnEl.parentNode.remove();
 }
-// liListener();
 function closeHighlight() {
     console.log("yo");
 }
+// liListener();
+
+/**
+ */
+const searchOptions = {
+    search: "coc",
+    ingredients: [],
+    appliances: [],
+    ustensils: [],
+};
+// penser a utiliser le destructuring function({origin , value})
+
+function globalSearch(arrOptions) {
+    let filteredRecipes = [];
+    if (arrOptions.search.length >= 3) {
+        filteredRecipes = recipes.filter(
+            (recipe) =>
+                recipe.name.toLowerCase().includes(arrOptions.search) ||
+                recipe.description.toLowerCase().includes(arrOptions.search) ||
+                recipe.ingredients.some((ing) =>
+                    ing.ingredient.toLowerCase().includes(arrOptions.search)
+                )
+        );
+        console.log(filteredRecipes);
+        const newIng = getUniqueValues(getAllIngredients(filteredRecipes));
+        generateDropdownHtml(newIng, "ingredients");
+    }
+}
+globalSearch(searchOptions);
