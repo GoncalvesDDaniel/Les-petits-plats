@@ -1,24 +1,168 @@
+// Import section
+import "../../data/recipes.js";
 import { recipes } from "../../data/recipes.js";
-import { liListener, closeTagListener } from "../utils/search.js";
-import {
-    listOfUniqueIngredients,
-    listOfUniqueAppliance,
-    listOfUniqueUstensils,
-} from "../utils/search.js";
 // import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
+
+// Export section
+const listOfUniqueIngredients = getUniqueValues(getAllIngredients(recipes));
+const listOfUniqueAppliance = getUniqueValues(getAllAppliance(recipes));
+const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
 
 // Dom Element (El)
 const displayEl = document.querySelector(".card-recipes .row");
+const ulHighlightTagEl = document.querySelector(".dropdown-tag");
 
-// console.log(recipes);
+//Functions
+/**
+ *Extrate all ingredients of the database and return an array with duplicate ingredients
+ * @param {Recipe[]} array - Recipe array from the database
+ * @returns {string[]}
+ */
+function getAllIngredients(array) {
+    let allIngredients = [];
+    array.map((recipe) =>
+        recipe.ingredients.map((ingredients) =>
+            allIngredients.push(ingredients.ingredient)
+        )
+    );
+    return allIngredients.flat();
+}
 
-// Function for the display of dropdown section
+/**
+ * Extrate all appliances of the database and return an array with duplicate appliances
+ * @param {Recipe[]} array - Recipe array from database
+ * @returns {string[]}
+ */
+function getAllAppliance(array) {
+    let allAppliance = [];
+    array.map((recipe) => allAppliance.push(recipe.appliance));
+    return allAppliance;
+}
+
+/**
+ * Extrate all ustensils of the database and return an array with duplicate ustensils
+ * @param {recipes[]} array - Recipe array from the database
+ */
+function getAllUstensils(array) {
+    let allUstensils = [];
+    array.map((recipe) =>
+        recipe.ustensils.map((ustensil) => allUstensils.push(ustensil))
+    );
+    return allUstensils;
+}
+
+/**
+ * Take an array of string with duplicate and return an array with unique values
+ * @param {string[]} array - Array with duplicate string
+ * @returns {string[]}
+ * */
+function getUniqueValues(array) {
+    let uniqueValues = [];
+    array.forEach((element) => {
+        if (!uniqueValues.includes(element.toLowerCase())) {
+            uniqueValues.push(element.toLowerCase());
+        }
+    });
+    return uniqueValues;
+}
+
+function liListener() {
+    document.querySelectorAll(".list_unselected li").forEach((li) => {
+        if (!li) return;
+        else {
+            li.addEventListener("click", (event) => tagOnDropdowns(event));
+        }
+    });
+}
+
+function btnClearTextListener() {
+    document.querySelectorAll(".btn-close[data-btn=clear]").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            if (event.currentTarget !== btn) return;
+            console.log(event.currentTarget);
+        });
+    });
+}
+
 /**
  *
- * @param {string[]} array - An array of unique values to display in the dropdown
+ * @param {HTMLElement} liElement
+ */
+function tagOnDropdowns(liElement) {
+    // Define the list clicked in lowerCase
+    let currentListName = liElement.currentTarget.parentElement.dataset.list;
+    let currentOptionName = liElement.currentTarget.innerText;
+
+    let highlightUlEl = document.querySelector(
+        `.list-${currentListName}_selected`
+    );
+
+    const highlightLiClass =
+        "d-flex justify-content-between align-items-center";
+    const hightlightBtnHtml =
+        '<button class="btn  btn-close" data-btn="tag"></button>';
+
+    //create new li and copy the text for the highlight ul
+    const highlightLi = document.createElement("li");
+
+    highlightLi.className = highlightLiClass;
+    highlightLi.setAttribute("name", currentOptionName);
+    // copy the HTML without display none on the close btn
+    highlightLi.innerHTML = ` ${liElement.currentTarget.innerHTML} ${hightlightBtnHtml} `;
+    highlightUlEl.appendChild(highlightLi);
+
+    const highlightLiTag = document.createElement("li");
+    highlightLiTag.className = highlightLiClass;
+    highlightLiTag.setAttribute("name", `${liElement.currentTarget.innerText}`);
+    highlightLiTag.innerHTML = ` ${liElement.currentTarget.innerHTML} ${hightlightBtnHtml} `;
+    ulHighlightTagEl.appendChild(highlightLiTag);
+
+    // li clicked no more avaliable
+    liElement.currentTarget.classList.add("d-none");
+
+    // add the tag to le search array
+
+    closeTagListener();
+}
+function closeTagListener() {
+    document.querySelectorAll(".btn-close[data-btn=tag]").forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            if (event.currentTarget !== btn) return;
+            else closeTag(event.currentTarget);
+        });
+    });
+}
+
+function closeTag(btnEl) {
+    // console.log(btnEl.parentNode.parentNode);
+    // console.log(btnEl.previousElementSibling.innerText);
+    let elToClose = document.querySelectorAll(
+        `li[name="${btnEl.previousElementSibling.innerText}"]`
+    );
+    console.log(elToClose);
+    elToClose.forEach((highlightEl) => highlightEl.remove());
+    // btnEl.parentNode.remove();
+}
+
+function closeHighlight() {
+    console.log("yo");
+}
+// liListener();
+
+/**
+ */
+const searchOptions = {
+    search: "coc",
+    ingredients: [],
+    appliances: [],
+    ustensils: [],
+};
+/**
+ *
+ * @param {Recipe[]} array - An array of unique values to display in the dropdown
  * @param {string} dropdownName - Name has to mach html class ('ingredients', 'appliance' or 'ustensils')
  */
-export function generateDropdownHtml(array, dropdownName) {
+function generateDropdownHtml(array, dropdownName) {
     let dropdownEl = document.querySelector(`.list-${dropdownName}`);
     const firstLetterRegex = /^[a-z]/;
     let dropdownListHtml = array
@@ -44,7 +188,7 @@ export function generateDropdownHtml(array, dropdownName) {
  * @param {Array<object>} ingredients
  * @returns {string}
  */
-export function generateIngredientsCardHtml(ingredients) {
+function generateIngredientsCardHtml(ingredients) {
     const ingredientsCardDiv = document.createElement("div");
     ingredientsCardDiv.className = "row row-cols-2";
 
