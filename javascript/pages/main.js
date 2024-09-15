@@ -1,22 +1,21 @@
 // Import section
-import "../../data/recipes.js";
+import "../../javascript/doc/jsdoc.js";
 import { recipes } from "../../data/recipes.js";
 // import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
 
 // Export section
-const listOfUniqueIngredients = getUniqueValues(getAllIngredients(recipes));
-const listOfUniqueAppliance = getUniqueValues(getAllAppliance(recipes));
-const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
 
 // Dom Element (El)
 const displayEl = document.querySelector(".card-recipes .row");
 const ulHighlightTagEl = document.querySelector(".dropdown-tag");
+const tagUlEl = document.querySelector(".dropdown-tag");
 
 //Functions
+
 /**
  *Extrate all ingredients of the database and return an array with duplicate ingredients
  * @param {Recipe[]} array - Recipe array from the database
- * @returns {string[]}
+ * @returns {string[]} Array with duplicates ingredients
  */
 function getAllIngredients(array) {
     let allIngredients = [];
@@ -31,7 +30,7 @@ function getAllIngredients(array) {
 /**
  * Extrate all appliances of the database and return an array with duplicate appliances
  * @param {Recipe[]} array - Recipe array from database
- * @returns {string[]}
+ * @returns {string[]} Array with duplicates appliance
  */
 function getAllAppliance(array) {
     let allAppliance = [];
@@ -41,7 +40,8 @@ function getAllAppliance(array) {
 
 /**
  * Extrate all ustensils of the database and return an array with duplicate ustensils
- * @param {recipes[]} array - Recipe array from the database
+ * @param {Recipe[]} array - Recipe array from the database
+ * @returns {string[]} Array with duplicates ustensils
  */
 function getAllUstensils(array) {
     let allUstensils = [];
@@ -53,8 +53,8 @@ function getAllUstensils(array) {
 
 /**
  * Take an array of string with duplicate and return an array with unique values
- * @param {string[]} array - Array with duplicate string
- * @returns {string[]}
+ * @param {string[]} array - Array with duplicate
+ * @returns {string[]} Array with unique values
  * */
 function getUniqueValues(array) {
     let uniqueValues = [];
@@ -68,10 +68,16 @@ function getUniqueValues(array) {
 
 function liListener() {
     document.querySelectorAll(".list_unselected li").forEach((li) => {
-        if (!li) return;
-        else {
-            li.addEventListener("click", (event) => tagOnDropdowns(event));
-        }
+        li.addEventListener("click", (event) => {
+            let testLi;
+            // for (const keys in event.target.attributes) {
+            //     testLi.setAttributeNode = event.target.attributes.keys;
+            // }
+            testLi = event.target.cloneNode(true);
+            console.log(testLi);
+            // console.log(event.target.attributes.getNamedItem("name"));
+            tagOnDropdowns(event);
+        });
     });
 }
 
@@ -174,8 +180,8 @@ function generateDropdownHtml(array, dropdownName) {
         )
         .map(
             (capitalizeElement) =>
-                ` <li name="${capitalizeElement}" > 
-                    <p class="mb-0" >${capitalizeElement}</p>
+                ` <li name="${capitalizeElement}" data-list=${dropdownName}> 
+                    ${capitalizeElement}
                 </li>`
         );
 
@@ -268,24 +274,109 @@ function generateRecipesCard(recipeObj) {
 
 /**
  * Display the first 10 recipes of the json file
- * @param {Array} array
+ * @param {Recipe[]} array
  */
 function displayDefaultLayout(array) {
     for (let index = 0; index < 10; index++) {
-        const recipe = array[index];
-        generateRecipesCard(recipe);
+        generateRecipesCard(array[index]);
     }
 }
+function dropdownsListener() {
+    const dropdownsEl = document.querySelectorAll(".accordion");
 
+    // Listening if a dropdown is open with Bootstrap Events
+    // https://getbootstrap.com/docs/4.0/components/collapse/
+    dropdownsEl.forEach((dropdown) => {
+        dropdown.addEventListener("shown.bs.collapse", (event) => {
+            //Listening if an option is selected
+            dropdown.addEventListener(
+                "click",
+                (event) => {
+                    //if an option is click
+                    if (
+                        //     dropdown.contains(event.target) &&
+                        event.target.nodeName === "LI"
+                    ) {
+                        addSearchOption(dropdown, event.target);
+                    }
+                    //if the clear btn is click
+                    if (
+                        // event.target.nodeName === "BUTTON" &&
+                        event.target.dataset.btn === "clear"
+                    ) {
+                        dropdown.querySelector("input").value = "";
+                        console.log(`resetSearch()`);
+                    }
+                    //? add spellchecker to the search input
+                    if (event.target.nodeName === "INPUT") {
+                        dropdown
+                            .querySelector("input")
+                            .addEventListener("keydown", (event) =>
+                                console.log(
+                                    `launchSeach(${dropdown.id}, ${event.target.value})`
+                                )
+                            );
+                    }
+                }
+                // addSearchOption(event.target)
+            );
+            console.log("enter");
+        });
+        // Listening if a dropdown is close with Bootstrap Events
+        dropdown.addEventListener("hidden.bs.collapse", () => {
+            console.log("sortie");
+            dropdown.removeEventListener("click", () =>
+                deleteSearchOption("remove")
+            );
+        });
+    });
+}
+// let testLi
+// testLi = event.target.cloneNode(true);
+function addSearchOption(list, optionEl) {
+    let newOption = [optionEl.innerText];
+    searchOptions[list.id].push(newOption);
+    console.log(searchOptions);
+
+    const highlightClassName =
+        "w-100 d-flex justify-content-between align-items-center";
+    const highlightBtn = `<button class="btn  btn-close" data-btn="tag"></button>`;
+    let listUlEl = list.querySelector(`.list-${list.id}_selected`);
+    let liClone = optionEl.cloneNode(true);
+
+    let tagLi = optionEl.cloneNode(true);
+    tagLi.className = highlightClassName;
+    tagLi.innerHTML = `${tagLi.innerHTML} ${highlightBtn}`;
+    tagUlEl.appendChild(tagLi);
+
+    let listLi = optionEl.cloneNode(true);
+    listLi.className = highlightClassName;
+    listLi.innerHTML = `${listLi.innerHTML} ${highlightBtn}`;
+    listUlEl.appendChild(listLi);
+
+    optionEl.classList.add("d-none");
+    // console.log(`launchSearch(${list} , ${optionEl.innerText})`);
+    // console.log(optionEl);
+}
+function deleteSearchOption(optionEl) {
+    console.log("delete");
+}
 /**
  *
  */
 function init() {
-    displayDefaultLayout(recipes);
+    const listOfUniqueIngredients = getUniqueValues(getAllIngredients(recipes));
     generateDropdownHtml(listOfUniqueIngredients, "ingredients");
+
+    const listOfUniqueAppliance = getUniqueValues(getAllAppliance(recipes));
     generateDropdownHtml(listOfUniqueAppliance, "appliance");
+
+    const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
     generateDropdownHtml(listOfUniqueUstensils, "ustensils");
-    liListener();
+
+    displayDefaultLayout(recipes);
+    // liListener();
+    dropdownsListener();
     // btnCloseTagListener();
 }
 

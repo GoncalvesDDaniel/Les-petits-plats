@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Les petits plats</title>
         <link rel="stylesheet" href="./css/styles.css" />
+        <script defer type="module" src="./data/recipes.js"></script>
         <script defer type="module" src="./javascript/utils/search.js"></script>
         <script defer type="module" src="./javascript/pages/main.js"></script>
 
@@ -107,7 +108,7 @@
                         <div class="col-7 hstack gap-5 px-0">
                             <div
                                 class="accordion col me-3 align-self-start position-relative"
-                                id="accordionIngredients"
+                                id="ingredients"
                             >
                                 <div class="accordion-item">
                                     <h2
@@ -129,7 +130,7 @@
                                         id="collapseIngredients"
                                         class="accordion-collapse collapse position-absolute w-100 z-1 bg-white overflow-y-scroll overflow-x-hidden"
                                         aria-labelledby="headingIngredients"
-                                        data-bs-parent="#accordionIngredients"
+                                        data-bs-parent="#ingredients"
                                     >
                                         <div class="accordion-body">
                                             <div
@@ -197,7 +198,7 @@
 
                             <div
                                 class="accordion col me-3 align-self-start position-relative"
-                                id="accordionAppareils"
+                                id="appliance"
                             >
                                 <div class="accordion-item">
                                     <h2
@@ -219,7 +220,7 @@
                                         id="collapseAppareils"
                                         class="accordion-collapse collapse position-absolute w-100 z-1 bg-white overflow-y-scroll"
                                         aria-labelledby="headingAppareils"
-                                        data-bs-parent="#accordionAppareils"
+                                        data-bs-parent="#appliance"
                                     >
                                         <div class="accordion-body">
                                             <div
@@ -286,7 +287,7 @@
                             </div>
                             <div
                                 class="accordion col me-3 align-self-start position-relative"
-                                id="accordionUstensils"
+                                id="ustensils"
                             >
                                 <div class="accordion-item">
                                     <h2
@@ -308,7 +309,7 @@
                                         id="collapseUstensils"
                                         class="accordion-collapse collapse position-absolute z-1 w-100 bg-white overflow-y-scroll"
                                         aria-labelledby="headingUstensils"
-                                        data-bs-parent="#accordionUstensils"
+                                        data-bs-parent="#ustensils"
                                     >
                                         <div class="accordion-body">
                                             <div

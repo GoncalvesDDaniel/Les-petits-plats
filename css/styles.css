@@ -37,17 +37,15 @@ h1.hero-font {
     padding: 18px;
     border-radius: 0.375rem;
     margin-right: 1.5rem;
+    font-size: 14px;
 }
 .dropdown-tag .btn-close {
     background-size: 60%;
     padding: 0;
+    margin-left: 60px;
 }
 
-.dropdown-tag p {
-    font-size: 14px;
-    margin-right: 60px;
-}
-.accordion-button:not(.collapsed) {
+.dropdown-tag p .accordion-button:not(.collapsed) {
     background-color: #fff !important;
     border-bottom: none;
 }

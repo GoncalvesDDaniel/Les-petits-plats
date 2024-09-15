@@ -1,5 +1,5 @@
 //Import modules
-import "../../data/recipes.js";
+import "../../javascript/doc/jsdoc.js";
 // import { generateDropdownHtml } from "../pages/main.js";
 
 // penser a utiliser le destructuring function({origin , value})
