@@ -328,11 +328,18 @@ function userInputListener() {
     const userInput = document.querySelector("#search");
     const formResetBtn = document.querySelector(".search-button_reset");
 
-    form.addEventListener("submit", (submit) => {
+    form.addEventListener("input", () => {
+        // console.log(userInput.value);
         if (userInput.value.length >= 3) {
             searchOptions.addOptions("search", userInput.value);
-            console.log(searchOptions);
+        } else {
+            searchOptions.deleteOptions("search", "");
         }
+    });
+    formResetBtn.addEventListener("click", () => {
+        userInput.value = "";
+        searchOptions.deleteOptions("search");
+        console.log("click", userInput.value);
     });
 }
 import { searchOptions } from "../utils/search.js";
