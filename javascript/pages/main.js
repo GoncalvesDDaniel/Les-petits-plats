@@ -156,14 +156,6 @@ function closeHighlight() {
 // liListener();
 
 /**
- */
-const searchOptions = {
-    search: "coc",
-    ingredients: [],
-    appliances: [],
-    ustensils: [],
-};
-/**
  *
  * @param {Recipe[]} array - An array of unique values to display in the dropdown
  * @param {string} dropdownName - Name has to mach html class ('ingredients', 'appliance' or 'ustensils')
@@ -331,11 +323,24 @@ function dropdownsListener() {
         });
     });
 }
+function userInputListener() {
+    const form = document.querySelector("form");
+    const userInput = document.querySelector("#search");
+    const formResetBtn = document.querySelector(".search-button_reset");
+
+    form.addEventListener("submit", (submit) => {
+        if (userInput.value.length >= 3) {
+            searchOptions.addOptions("search", userInput.value);
+            console.log(searchOptions);
+        }
+    });
+}
+import { searchOptions } from "../utils/search.js";
 // let testLi
 // testLi = event.target.cloneNode(true);
 function addSearchOption(list, optionEl) {
     let newOption = [optionEl.innerText];
-    searchOptions[list.id].push(newOption);
+    searchOptions.addOptions(list.id, newOption);
     console.log(searchOptions);
 
     const highlightClassName =
@@ -344,6 +349,7 @@ function addSearchOption(list, optionEl) {
     let listUlEl = list.querySelector(`.list-${list.id}_selected`);
     let liClone = optionEl.cloneNode(true);
 
+    //clone the clicked element, put some style, add a close btn and add to the hightligh dropdown ul and to the tag ul
     let tagLi = optionEl.cloneNode(true);
     tagLi.className = highlightClassName;
     tagLi.innerHTML = `${tagLi.innerHTML} ${highlightBtn}`;
@@ -378,6 +384,7 @@ function init() {
     // liListener();
     dropdownsListener();
     // btnCloseTagListener();
+    userInputListener();
 }
 
 init();

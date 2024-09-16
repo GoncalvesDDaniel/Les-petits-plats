@@ -69,30 +69,36 @@
                             </h1>
                         </div>
                     </div>
-                    <div
-                        class="hero-input row position-relative align-items-center justify-content-between"
-                    >
-                        <label
-                            for="recipe-search"
-                            aria-describedby="recipe-search"
-                            class="visually-hidden"
-                        ></label>
-                        <input
-                            id="recipe-search"
-                            type="text"
-                            class="form-control ps-4 py-4 rounded-4 col-12"
-                            placeholder="Rechercher une recette, un ingrédient, ..."
-                            aria-label="Rechercher une recette ou un ingrédient"
-                        />
+                    <form action="#" method="get">
                         <div
-                            class="btn btn-close d-none position-absolute"
-                            data-btn="clear"
-                        ></div>
-                        <button
-                            class="search-button rounded-3 border-0 position-absolute"
-                            aria-label="Cercher une recette"
-                        ></button>
-                    </div>
+                            class="hero-input row position-relative align-items-center justify-content-between"
+                        >
+                            <label
+                                for="search"
+                                aria-describedby="search"
+                                class="form-label visually-hidden"
+                            ></label>
+                            <input
+                                id="search"
+                                type="text"
+                                class="form-control ps-4 py-4 rounded-4 col-12"
+                                placeholder="Rechercher une recette, un ingrédient, ..."
+                                aria-label="Rechercher une recette ou un ingrédient"
+                                minlength="3"
+                            />
+                            <input
+                                type="reset"
+                                class="btn-close search-button_reset position-absolute"
+                                data-btn="clear"
+                                value=""
+                            />
+                            <button
+                                type="submit"
+                                class="search-button rounded-3 border-0 position-absolute"
+                                aria-label="Chercher une recette"
+                            ></button>
+                        </div>
+                    </form>
                 </div>
             </section>
         </div>

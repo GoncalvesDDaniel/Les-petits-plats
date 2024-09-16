@@ -11,9 +11,15 @@ main {
 .hero-input {
     padding-bottom: 173px;
 }
-#recipe-search {
+#search {
     padding-right: 120px;
 }
+#search[value=""] + .search-button_reset {
+    opacity: 0 !important;
+}
+/* #search:focus + .search-button_reset {
+    opacity: 1 !important;
+} */
 /* .hero-section .btn-close {
     top: ;
 } */
