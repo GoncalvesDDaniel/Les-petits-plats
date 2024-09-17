@@ -65,6 +65,13 @@ function getUniqueValues(array) {
     });
     return uniqueValues;
 }
+export function getAllUniqueValeusOfSearch(array) {
+    return {
+        ingredients: getUniqueValues(getAllIngredients(array)),
+        appliance: getUniqueValues(getAllAppliance(array)),
+        ustensils: getUniqueValues(getAllUstensils(array)),
+    };
+}
 
 function liListener() {
     document.querySelectorAll(".list_unselected li").forEach((li) => {
@@ -312,11 +319,11 @@ function dropdownsListener() {
                 }
                 // addSearchOption(event.target)
             );
-            console.log("enter");
+            // console.log("enter");
         });
         // Listening if a dropdown is close with Bootstrap Events
         dropdown.addEventListener("hidden.bs.collapse", () => {
-            console.log("sortie");
+            // console.log("sortie");
             dropdown.removeEventListener("click", () =>
                 deleteSearchOption("remove")
             );
@@ -346,9 +353,8 @@ import { searchOptions } from "../utils/search.js";
 // let testLi
 // testLi = event.target.cloneNode(true);
 function addSearchOption(list, optionEl) {
-    let newOption = [optionEl.innerText];
+    let newOption = optionEl.innerText;
     searchOptions.addOptions(list.id, newOption);
-    console.log(searchOptions);
 
     const highlightClassName =
         "w-100 d-flex justify-content-between align-items-center";
