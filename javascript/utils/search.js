@@ -1,7 +1,7 @@
 //Import modules
 import "../../javascript/doc/jsdoc.js";
 import { recipes } from "../../data/recipes.js";
-import { getAllUniqueValeusOfSearch } from "../pages/main.js";
+// import { getAllUniqueValeusOfSearch } from "../pages/main.js";
 
 // Const
 // make immutable copy of the database
@@ -19,12 +19,20 @@ export let searchOptions = {
     ingredients: [],
     appliances: [],
     ustensils: [],
+    /**
+     *
+     * @param {string} id
+     * @param {string} option
+     */
     addOptions(id, option) {
         if (id === "search") {
             searchOptions[id] = option;
         } else {
             searchOptions[id].push(option);
         }
+        // document
+        //     .querySelectorAll(".btn[datset=tag]")
+        //     .addEventListerner("click", (event) => console.log(event));
         globalSearch(searchOptions);
     },
     /**
@@ -39,6 +47,7 @@ export let searchOptions = {
             let optionIndex = searchOptions[id].indexOf(option);
             searchOptions[id].splice(optionIndex, 1);
         }
+        globalSearch(searchOptions);
     },
     displayRecipe(arr) {
         // console.log(arr.length);
@@ -80,13 +89,8 @@ function filterByUserSearch(str, recipeArray) {
  */
 function filterIngredientsByTags(options, recipeArray) {
     let searchResult = [];
-    // console.log(options);
     searchResult = recipeArray.filter((recipe) => {
-        // debugger;
-        // console.log(recipe.ingredients);
         return options.every((option) => {
-            // console.log(option);
-            // return true;
             return recipe.ingredients.some((ingredientsArrayItem) => {
                 return ingredientsArrayItem.ingredient
                     .toLowerCase()
@@ -95,22 +99,6 @@ function filterIngredientsByTags(options, recipeArray) {
         });
     });
 
-    // searchResult = recipeArray.filter((recipe) => {
-    //     options.every((option) => {
-    //         recipe.ingredients.some((ing) =>
-    //             ing.ingredient.includes(option.toLowerCase())
-    //         );
-    //     });
-    // });
-
-    // searchResult = recipeArray.filter((recipe) => {
-    //     recipe.ingredients.some((ingredientArray) => {
-    //         ingredientArray.ingredient
-    //             .toLowerCase()
-    //             .includes(options.every((option) => option.toLowerCase()));
-    //     });
-    // });
-    // console.log(searchResult);
     return searchResult;
 }
 
@@ -138,21 +126,15 @@ function globalSearch(objOptions) {
     }
 
     //Check if we have a appliance tag
-    if (searchOptions.appliances.length > 0) {
-        userRecipes = filterByTags(searchOptions.appliances, userRecipes);
-    }
+    // if (searchOptions.appliances.length > 0) {
+    //     userRecipes = filterByTags(searchOptions.appliances, userRecipes);
+    // }
 
     //Check if we have a ustensil tag
-    if (searchOptions.ustensils.length > 0) {
-        userRecipes = filterByTags(searchOptions.ustensils, userRecipes);
-    }
-
-    //early check with the user input
-    // if (userRecipes.length === 0) {
-    //     console.log("Aucune Recette");
-    // } else {
-    //     console.log(userRecipes);
+    // if (searchOptions.ustensils.length > 0) {
+    //     userRecipes = filterByTags(searchOptions.ustensils, userRecipes);
     // }
+
     searchOptions.displayRecipe(userRecipes);
 
     // console.log(getAllUniqueValeusOfSearch(userRecipes).ingredients);

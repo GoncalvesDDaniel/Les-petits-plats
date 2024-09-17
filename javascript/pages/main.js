@@ -1,207 +1,139 @@
 // Import section
 import "../../javascript/doc/jsdoc.js";
 import { recipes } from "../../data/recipes.js";
+import { searchOptions } from "../utils/search.js";
 // import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
 
 // Export section
 
 // Dom Element (El)
-const displayEl = document.querySelector(".card-recipes .row");
+const cardRecipesDisplayEl = document.querySelector(".card-recipes .row");
 const ulHighlightTagEl = document.querySelector(".dropdown-tag");
 const tagUlEl = document.querySelector(".dropdown-tag");
 
-//Functions
+// Functions
 
+// Functions for dropdowns menu
 /**
- *Extrate all ingredients of the database and return an array with duplicate ingredients
- * @param {Recipe[]} array - Recipe array from the database
- * @returns {string[]} Array with duplicates ingredients
- */
-function getAllIngredients(array) {
-    let allIngredients = [];
-    array.map((recipe) =>
-        recipe.ingredients.map((ingredients) =>
-            allIngredients.push(ingredients.ingredient)
-        )
-    );
-    return allIngredients.flat();
-}
-
-/**
- * Extrate all appliances of the database and return an array with duplicate appliances
- * @param {Recipe[]} array - Recipe array from database
- * @returns {string[]} Array with duplicates appliance
- */
-function getAllAppliance(array) {
-    let allAppliance = [];
-    array.map((recipe) => allAppliance.push(recipe.appliance));
-    return allAppliance;
-}
-
-/**
- * Extrate all ustensils of the database and return an array with duplicate ustensils
- * @param {Recipe[]} array - Recipe array from the database
- * @returns {string[]} Array with duplicates ustensils
- */
-function getAllUstensils(array) {
-    let allUstensils = [];
-    array.map((recipe) =>
-        recipe.ustensils.map((ustensil) => allUstensils.push(ustensil))
-    );
-    return allUstensils;
-}
-
-/**
- * Take an array of string with duplicate and return an array with unique values
- * @param {string[]} array - Array with duplicate
- * @returns {string[]} Array with unique values
- * */
-function getUniqueValues(array) {
-    let uniqueValues = [];
-    array.forEach((element) => {
-        if (!uniqueValues.includes(element.toLowerCase())) {
-            uniqueValues.push(element.toLowerCase());
-        }
-    });
-    return uniqueValues;
-}
-export function getAllUniqueValeusOfSearch(array) {
-    return {
-        ingredients: getUniqueValues(getAllIngredients(array)),
-        appliance: getUniqueValues(getAllAppliance(array)),
-        ustensils: getUniqueValues(getAllUstensils(array)),
-    };
-}
-
-function liListener() {
-    document.querySelectorAll(".list_unselected li").forEach((li) => {
-        li.addEventListener("click", (event) => {
-            let testLi;
-            // for (const keys in event.target.attributes) {
-            //     testLi.setAttributeNode = event.target.attributes.keys;
-            // }
-            testLi = event.target.cloneNode(true);
-            console.log(testLi);
-            // console.log(event.target.attributes.getNamedItem("name"));
-            tagOnDropdowns(event);
-        });
-    });
-}
-
-function btnClearTextListener() {
-    document.querySelectorAll(".btn-close[data-btn=clear]").forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-            if (event.currentTarget !== btn) return;
-            console.log(event.currentTarget);
-        });
-    });
-}
-
-/**
- *
- * @param {HTMLElement} liElement
- */
-function tagOnDropdowns(liElement) {
-    // Define the list clicked in lowerCase
-    let currentListName = liElement.currentTarget.parentElement.dataset.list;
-    let currentOptionName = liElement.currentTarget.innerText;
-
-    let highlightUlEl = document.querySelector(
-        `.list-${currentListName}_selected`
-    );
-
-    const highlightLiClass =
-        "d-flex justify-content-between align-items-center";
-    const hightlightBtnHtml =
-        '<button class="btn  btn-close" data-btn="tag"></button>';
-
-    //create new li and copy the text for the highlight ul
-    const highlightLi = document.createElement("li");
-
-    highlightLi.className = highlightLiClass;
-    highlightLi.setAttribute("name", currentOptionName);
-    // copy the HTML without display none on the close btn
-    highlightLi.innerHTML = ` ${liElement.currentTarget.innerHTML} ${hightlightBtnHtml} `;
-    highlightUlEl.appendChild(highlightLi);
-
-    const highlightLiTag = document.createElement("li");
-    highlightLiTag.className = highlightLiClass;
-    highlightLiTag.setAttribute("name", `${liElement.currentTarget.innerText}`);
-    highlightLiTag.innerHTML = ` ${liElement.currentTarget.innerHTML} ${hightlightBtnHtml} `;
-    ulHighlightTagEl.appendChild(highlightLiTag);
-
-    // li clicked no more avaliable
-    liElement.currentTarget.classList.add("d-none");
-
-    // add the tag to le search array
-
-    closeTagListener();
-}
-function closeTagListener() {
-    document.querySelectorAll(".btn-close[data-btn=tag]").forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-            if (event.currentTarget !== btn) return;
-            else closeTag(event.currentTarget);
-        });
-    });
-}
-
-function closeTag(btnEl) {
-    // console.log(btnEl.parentNode.parentNode);
-    // console.log(btnEl.previousElementSibling.innerText);
-    let elToClose = document.querySelectorAll(
-        `li[name="${btnEl.previousElementSibling.innerText}"]`
-    );
-    console.log(elToClose);
-    elToClose.forEach((highlightEl) => highlightEl.remove());
-    // btnEl.parentNode.remove();
-}
-
-function closeHighlight() {
-    console.log("yo");
-}
-// liListener();
-
-/**
- *
+ * Go throw all ingredients of the recipe and create the dropdown corresponding
  * @param {Recipe[]} array - An array of unique values to display in the dropdown
- * @param {string} dropdownName - Name has to mach html class ('ingredients', 'appliance' or 'ustensils')
+ * @param {string} dropdownName - Name has to match the id.accordion ('ingredients', 'appliance' or 'ustensils')
  */
-function generateDropdownHtml(array, dropdownName) {
-    let dropdownEl = document.querySelector(`.list-${dropdownName}`);
-    const firstLetterRegex = /^[a-z]/;
-    let dropdownListHtml = array
-        .map((uncapitalizeString) =>
-            uncapitalizeString.replace(
-                firstLetterRegex,
-                uncapitalizeString[0].toUpperCase()
+function generateDropdownHtml(recipeList) {
+    // Tool to build the dropdown
+    /**
+     *Extrate all ingredients of the recipeList and return an array with duplicate ingredients
+     * @param {Recipe[]} array - Recipe array from the database
+     * @returns {string[]} Array with duplicates ingredients
+     */
+    function getAllIngredients(array) {
+        let allIngredients = [];
+        array.map((recipe) =>
+            recipe.ingredients.map((ingredients) =>
+                allIngredients.push(ingredients.ingredient)
             )
-        )
-        .map(
-            (capitalizeElement) =>
-                ` <li name="${capitalizeElement}" data-list=${dropdownName}> 
-                    ${capitalizeElement}
-                </li>`
         );
+        return allIngredients.flat();
+    }
 
-    dropdownEl.innerHTML = dropdownListHtml.join("");
+    /**
+     * Extrate all appliances of the recipeList and return an array with duplicate appliances
+     * @param {Recipe[]} array - Recipe array from database
+     * @returns {string[]} Array with duplicates appliance
+     */
+    function getAllAppliance(array) {
+        let allAppliance = [];
+        array.map((recipe) => allAppliance.push(recipe.appliance));
+        return allAppliance;
+    }
+
+    /**
+     * Extrate all ustensils of the recipeList and return an array with duplicate ustensils
+     * @param {Recipe[]} array - Recipe array from the database
+     * @returns {string[]} Array with duplicates ustensils
+     */
+    function getAllUstensils(array) {
+        let allUstensils = [];
+        array.map((recipe) =>
+            recipe.ustensils.map((ustensil) => allUstensils.push(ustensil))
+        );
+        return allUstensils;
+    }
+
+    /**
+     * Take an array of string with duplicate and return an array with unique values alphabeticly sorted
+     * @param {string[]} array - Array with duplicate
+     * @returns {string[]} Array with unique values
+     * */
+    function getUniqueValues(array) {
+        let uniqueValues = [];
+        array.forEach((element) => {
+            if (!uniqueValues.includes(element.toLowerCase())) {
+                uniqueValues.push(element.toLowerCase());
+            }
+        });
+        uniqueValues.sort();
+        return uniqueValues;
+    }
+
+    /**
+     * Take the recipeList and return an object with an array with unique value corresponding to their key
+     * @param {Recipe[]} array
+     * @returns {{ingredients:string[],appliance:string[],ustensils:string[]}}
+     */
+    function getAllUniqueValeusOfSearch(array) {
+        return {
+            ingredients: getUniqueValues(getAllIngredients(array)),
+            appliance: getUniqueValues(getAllAppliance(array)),
+            ustensils: getUniqueValues(getAllUstensils(array)),
+        };
+    }
+
+    // Building all dropdowns
+    let allDropdownList = getAllUniqueValeusOfSearch(recipeList);
+    for (const listId in allDropdownList) {
+        const firstLetterRegex = /^[a-z]/;
+        let dropdownListHtml = allDropdownList[listId]
+            // map to capitalize the first letter of the string
+            .map((uncapitalizeString) =>
+                uncapitalizeString.replace(
+                    firstLetterRegex,
+                    uncapitalizeString[0].toUpperCase()
+                )
+            )
+            // map to make each item an html li, then join all li
+            .map(
+                (capitalizeElement) => ` <li>${capitalizeElement}</li>`
+                // name="${capitalizeElement}"
+                // data-list=${dropdownName}
+            );
+        // select dropdown list and put all li
+        let dropdownEl = document.querySelector(`#${listId} .list_unselected`);
+        dropdownEl.innerHTML = dropdownListHtml.join("");
+    }
 }
 
-// Function for the display of card section
+// Function for card recipe
 /**
- * Generate and format the list of ingredients for the html recipes cards
- * @param {Array<object>} ingredients
- * @returns {string}
+ * Generate all card of the given recipe array
+ * @param {Recipe} individualRecipe
+ * @returns {HTMLElemnt}
  */
-function generateIngredientsCardHtml(ingredients) {
-    const ingredientsCardDiv = document.createElement("div");
-    ingredientsCardDiv.className = "row row-cols-2";
+function generateRecipesCard(individualRecipe) {
+    /**
+     * Generate and format the list of ingredients for the html recipes cards
+     * @param {Ingredients[]} ingredients
+     * @returns {string}
+     */
+    function generateIngredientsCardHtml(ingredients) {
+        const ingredientsCardDiv = document.createElement("div");
+        ingredientsCardDiv.className = "row row-cols-2";
 
-    ingredients.forEach((ingredient) => {
-        const ingredientDiv = document.createElement("div");
-        ingredientDiv.className = "col card-text";
+        ingredients.forEach((ingredient) => {
+            const ingredientDiv = document.createElement("div");
+            ingredientDiv.className = "col card-text";
 
-        const ingredientDivHtml = `
+            const ingredientDivHtml = `
                                             <p class="d-block mb-0 fw-medium">${
                                                 ingredient.ingredient
                                             }
@@ -209,43 +141,37 @@ function generateIngredientsCardHtml(ingredients) {
                                             <p
                                                 class="d-block text-body-secondary mb-4"
                                             >
-${ingredient.quantity || ""}${ingredient.unit || ""}
+${ingredient.quantity || ""} ${ingredient.unit || ""}
                                             </p>
     `;
-        ingredientDiv.innerHTML = ingredientDivHtml;
-        ingredientsCardDiv.appendChild(ingredientDiv);
-    });
+            ingredientDiv.innerHTML = ingredientDivHtml;
+            ingredientsCardDiv.appendChild(ingredientDiv);
+        });
 
-    return ingredientsCardDiv.outerHTML;
-}
+        return ingredientsCardDiv.outerHTML;
+    }
 
-/**
- * Generate all card of the given recipe array
- * @param {Array<object>} recipeObj
- * @returns {HTMLElemnt}
- */
-function generateRecipesCard(recipeObj) {
     // Building the HTML code
     const recipeIngredientsHtml = generateIngredientsCardHtml(
-        recipeObj.ingredients
+        individualRecipe.ingredients
     );
     const recipeCardHtml = `
                             <div
                                 class="card rounded-4 overflow-hidden position-relative"
                             >
                                 <img
-                                    src="./assets/photos/${recipeObj.image}"
+                                    src="./assets/photos/${individualRecipe.image}"
                                     class="card-img-top object-fit-cover w-100 mb-2"
-                                    alt="${recipeObj.name}"
+                                    alt="${individualRecipe.name}"
                                 />
                                 <div
                                     class="card-time position-absolute rounded rounded-pill px-3 py-1"
                                 >
-                                    ${recipeObj.time}min
+                                    ${individualRecipe.time}min
                                 </div>
                                 <div class="card-body p-4 mb-3">
                                     <h2 class="card-title hero-font mb-4">
-                                        ${recipeObj.name}
+                                        ${individualRecipe.name}
                                     </h2>
                                     <h3
                                         class="card-subtitle text-uppercase py-2"
@@ -253,7 +179,7 @@ function generateRecipesCard(recipeObj) {
                                         Recette
                                     </h3>
                                     <p class="card-text py-2 mb-4">
-                                    ${recipeObj.description}
+                                    ${individualRecipe.description}
                                     </p>
                                     <h3
                                         class="card-subtitle text-uppercase mb-2 py-2 fw-semibold"
@@ -268,69 +194,22 @@ function generateRecipesCard(recipeObj) {
     const recipeCard = document.createElement("article");
     recipeCard.className = "col-4 p-4 mb-3";
     recipeCard.innerHTML = recipeCardHtml;
-    displayEl.appendChild(recipeCard);
+    cardRecipesDisplayEl.appendChild(recipeCard);
 }
 
 /**
- * Display the first 10 recipes of the json file
+ * Generate card and display it. Only the first 10 recipes
  * @param {Recipe[]} array
  */
 function displayDefaultLayout(array) {
+    generateDropdownHtml(array);
     for (let index = 0; index < 10; index++) {
         generateRecipesCard(array[index]);
     }
 }
-function dropdownsListener() {
-    const dropdownsEl = document.querySelectorAll(".accordion");
 
-    // Listening if a dropdown is open with Bootstrap Events
-    // https://getbootstrap.com/docs/4.0/components/collapse/
-    dropdownsEl.forEach((dropdown) => {
-        dropdown.addEventListener("shown.bs.collapse", (event) => {
-            //Listening if an option is selected
-            dropdown.addEventListener(
-                "click",
-                (event) => {
-                    //if an option is click
-                    if (
-                        //     dropdown.contains(event.target) &&
-                        event.target.nodeName === "LI"
-                    ) {
-                        addSearchOption(dropdown, event.target);
-                    }
-                    //if the clear btn is click
-                    if (
-                        // event.target.nodeName === "BUTTON" &&
-                        event.target.dataset.btn === "clear"
-                    ) {
-                        dropdown.querySelector("input").value = "";
-                        console.log(`resetSearch()`);
-                    }
-                    //? add spellchecker to the search input
-                    if (event.target.nodeName === "INPUT") {
-                        dropdown
-                            .querySelector("input")
-                            .addEventListener("keydown", (event) =>
-                                console.log(
-                                    `launchSeach(${dropdown.id}, ${event.target.value})`
-                                )
-                            );
-                    }
-                }
-                // addSearchOption(event.target)
-            );
-            // console.log("enter");
-        });
-        // Listening if a dropdown is close with Bootstrap Events
-        dropdown.addEventListener("hidden.bs.collapse", () => {
-            // console.log("sortie");
-            dropdown.removeEventListener("click", () =>
-                deleteSearchOption("remove")
-            );
-        });
-    });
-}
-function userInputListener() {
+// Function addListener
+function searchBarListener() {
     const form = document.querySelector("form");
     const userInput = document.querySelector("#search");
     const formResetBtn = document.querySelector(".search-button_reset");
@@ -349,10 +228,74 @@ function userInputListener() {
         console.log("click", userInput.value);
     });
 }
-import { searchOptions } from "../utils/search.js";
+function dropdownsListener() {
+    const dropdownsEl = document.querySelectorAll(".accordion");
+
+    // Listening if a dropdown is open with Bootstrap Events
+    // https://getbootstrap.com/docs/4.0/components/collapse/
+    dropdownsEl.forEach((dropdown) => {
+        dropdown.addEventListener("shown.bs.collapse", (event) => {
+            //Listening if an option is selected
+            // console.log(dropdown.id);
+            dropdown.addEventListener(
+                "click",
+                (event) => {
+                    console.log(event.target.innerText);
+                    //if an option is click
+                    if (
+                        // event.target.nodeName === "LI"
+                        event.target.parentNode.matches(".list_unselected")
+                    ) {
+                        addSearchOption(dropdown, event.target);
+                    }
+                    //if the clear btn is click
+                    if (
+                        // event.target.nodeName === "BUTTON" &&
+                        event.target.dataset.btn === "clear"
+                    ) {
+                        dropdown.querySelector("input").value = "";
+                        // console.log(`resetSearch()`);
+                    }
+                    //? add spellchecker to the search input
+                    if (event.target.nodeName === "INPUT") {
+                        dropdown
+                            .querySelector("input")
+                            .addEventListener("keydown", (event) =>
+                                console.log(
+                                    `launchSeach(${dropdown.id}, ${event.target.value})`
+                                )
+                            );
+                    }
+                }
+                // addSearchOption(event.target)
+            );
+        });
+        // Listening if a dropdown is close with Bootstrap Events
+        dropdown.addEventListener("hidden.bs.collapse", () => {
+            dropdown.removeEventListener("click", () =>
+                deleteSearchOption("remove")
+            );
+        });
+    });
+}
 // let testLi
 // testLi = event.target.cloneNode(true);
 function addSearchOption(list, optionEl) {
+    //! Pour demain insha'Allah =>
+
+    //TODO continuer l'algo
+    //TODO 1.) Finir les algo de tri pour appliances et ustensils
+    //TODO 2.) Ajouter la fonctionnaliter searchOptions.delete (sans coder le HTML)
+    //TODO 3.) Test du rendu visuel
+
+    //TODO importer les nouvelles functions generatedDropdownsHTML et generatedRecipeCard
+
+    //TODO changer optionEl par event.target.innertext et enlever tout le bazard de clone li
+
+    //TODO mettre un eventListener sur le btn-close.dataset = tag et faire le searchOptions.deleted(...,...)
+
+    //! 2 JOURS POUR FINIR LE PLUS GROS GOGOOGOGOOG
+
     let newOption = optionEl.innerText;
     searchOptions.addOptions(list.id, newOption);
 
@@ -377,27 +320,13 @@ function addSearchOption(list, optionEl) {
     // console.log(`launchSearch(${list} , ${optionEl.innerText})`);
     // console.log(optionEl);
 }
-function deleteSearchOption(optionEl) {
-    console.log("delete");
-}
 /**
  *
  */
 function init() {
-    const listOfUniqueIngredients = getUniqueValues(getAllIngredients(recipes));
-    generateDropdownHtml(listOfUniqueIngredients, "ingredients");
-
-    const listOfUniqueAppliance = getUniqueValues(getAllAppliance(recipes));
-    generateDropdownHtml(listOfUniqueAppliance, "appliance");
-
-    const listOfUniqueUstensils = getUniqueValues(getAllUstensils(recipes));
-    generateDropdownHtml(listOfUniqueUstensils, "ustensils");
-
     displayDefaultLayout(recipes);
-    // liListener();
     dropdownsListener();
-    // btnCloseTagListener();
-    userInputListener();
+    searchBarListener();
 }
 
 init();
