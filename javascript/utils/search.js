@@ -8,14 +8,7 @@ import { recipes } from "../../data/recipes.js";
 let filteredRecipes = recipes;
 
 /**
- * @typedef {object} searchOptions - Search params object
- * @property {string} search - Text user input
- * @property {string[]} ingredients - List of ingredients selected
- * @property {string} appliances - List of appliances selected
- * @property {string[]} ustensils - List of ustensils selected
- * @property {function} addOptions
- * @property {function} deleteOptions
- * @property {function} displayRecipe
+ * @type {searchOptions} - Search params object
  */
 export let searchOptions = {
     search: "",
@@ -43,7 +36,7 @@ export let searchOptions = {
      */
     deleteOptions(id, option) {
         if (id === "search" || id === "appliances") {
-            searchOptions.id = "";
+            searchOptions[id] = "";
         } else {
             let optionIndex = searchOptions[id].indexOf(option);
             searchOptions[id].splice(optionIndex, 1);

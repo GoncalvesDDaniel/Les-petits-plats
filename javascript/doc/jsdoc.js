@@ -16,4 +16,15 @@
  * @property {string} appliance - L'appareil nécessaire pour la préparation.
  * @property {string[]} ustensils - La liste des ustensiles nécessaires pour la préparation.
 
+
+/**
+ * @typedef {object} searchOptions - Search params object
+ * @property {string} search - Text user input
+ * @property {string[]} ingredients - List of ingredients selected
+ * @property {string} appliances - List of appliances selected
+ * @property {string[]} ustensils - List of ustensils selected
+ * @property {function} addOptions
+ * @property {function} deleteOptions
+ * @property {function} displayRecipe
+
  */

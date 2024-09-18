@@ -103,7 +103,8 @@ function generateDropdownHtml(recipeList) {
             )
             // map to make each item an html li, then join all li
             .map(
-                (capitalizeElement) => ` <li>${capitalizeElement}</li>`
+                (capitalizeElement) =>
+                    ` <li data-id='${capitalizeElement}'>${capitalizeElement}</li>`
                 // name="${capitalizeElement}"
                 // data-list=${dropdownName}
             );
@@ -223,9 +224,8 @@ function searchBarListener() {
         }
     });
     formResetBtn.addEventListener("click", () => {
-        userInput.value = "";
-        searchOptions.deleteOptions("search");
-        console.log("click", userInput.value);
+        // userInput.value = "";
+        deleteSearchOption("search", userInput);
     });
 }
 function dropdownsListener() {
@@ -313,12 +313,14 @@ function addSearchOption(list, optionEl) {
     // li for ul dropdown
     let liForDropdown = document.createElement("li");
     liForDropdown.className = tagClassName;
+    liForDropdown.dataset.id = `${option}`;
     liForDropdown.innerHTML = `${option} ${btnCloseTagHtml}`;
     dropdownUlEl.appendChild(liForDropdown);
 
     // li for ul main page
     let liForMain = document.createElement("li");
     liForMain.className = tagClassName;
+    liForMain.dataset.id = `${option}`;
     liForMain.innerHTML = `${option} ${btnCloseTagHtml}`;
     mainTagUlEl.appendChild(liForMain);
 
@@ -329,7 +331,7 @@ function closeTagListener() {
     //select all ul with btn-close
     mainTagUlEl.addEventListener("click", (event) => {
         if (event.target.matches(".btn-close"))
-            deleteSearchOption(event.target.dataset.list, event);
+            deleteSearchOption(event.target.dataset.list, event.target);
     });
     const allDropdownUlEl = document.querySelectorAll(".list_selected");
     allDropdownUlEl.forEach((ul) =>
@@ -340,10 +342,26 @@ function closeTagListener() {
     );
 }
 function deleteSearchOption(list, optionEl) {
-    console.log(list);
-    console.log(optionEl.parentElement);
+    let deleteOption = optionEl.parentNode.innerText;
+    searchOptions.deleteOptions(list, deleteOption);
 
-    // searchOptions.deleteOptions(event.target.dataset.list ,event.target.previousSibling)
+    if (list === "search") {
+        // Search bar input reset with value not innerHTML
+        optionEl.value = "";
+        console.log(searchOptions);
+    } else {
+        // remove tag from ul main and ul dropdown
+        document
+            .querySelector(`.dropdown-tag li[data-id='${deleteOption}']`)
+            .remove();
+        document
+            .querySelector(`#${list} li[data-id='${deleteOption}']`)
+            .remove();
+        // make the selection available
+        document
+            .querySelector(`.list_unselected li[data-id='${deleteOption}']`)
+            .classList.remove("d-none");
+    }
 }
 /**
  *
