@@ -1,6 +1,7 @@
 //Import modules
 import "../../javascript/doc/jsdoc.js";
 import { recipes } from "../../data/recipes.js";
+import { initialHtmlDisplay } from "../pages/main.js";
 // import { getAllUniqueValeusOfSearch } from "../pages/main.js";
 
 // Const
@@ -48,9 +49,11 @@ export let searchOptions = {
      * @param {Recipe[]} arr
      */
     displayRecipe(arr) {
-        // console.log(arr.length);
+        console.log(initialHtmlDisplay);
         if (!arr.length) {
             console.log("DisplayResult :", "Aucune recette trouvée");
+        } else if (arr.length === recipes.length) {
+            console.log("Displaydefaut");
         } else {
             console.log("DisplayResult :", arr);
         }

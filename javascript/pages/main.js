@@ -19,7 +19,7 @@ const mainTagUlEl = document.querySelector(".dropdown-tag");
  * @param {Recipe[]} array - An array of unique values to display in the dropdown
  * @param {string} dropdownName - Name has to match the id.accordion ('ingredients', 'appliance' or 'ustensils')
  */
-function generateDropdownHtml(recipeList) {
+export function generateDropdownHtml(recipeList) {
     // Tool to build the dropdown
     /**
      *Extrate all ingredients of the recipeList and return an array with duplicate ingredients
@@ -120,7 +120,7 @@ function generateDropdownHtml(recipeList) {
  * @param {Recipe} individualRecipe
  * @returns {HTMLElemnt}
  */
-function generateRecipesCard(individualRecipe) {
+export function generateRecipesCard(individualRecipe) {
     /**
      * Generate and format the list of ingredients for the html recipes cards
      * @param {Ingredients[]} ingredients
@@ -288,14 +288,14 @@ function addSearchOption(list, optionEl) {
 
     //TODO continuer l'algo
     //* 1.) Finir les algo de tri pour appliances et ustensils
-    //TODO 2.) Ajouter la fonctionnaliter searchOptions.delete (sans coder le HTML)
+    //* 2.) Ajouter la fonctionnaliter searchOptions.delete (sans coder le HTML)
     //TODO 3.) Test du rendu visuel
 
     //TODO importer les nouvelles functions generatedDropdownsHTML et generatedRecipeCard
 
     //* changer optionEl par event.target.innertext et enlever tout le bazard de clone li
 
-    //TODO mettre un eventListener sur le btn-close.dataset = tag et faire le searchOptions.deleted(...,...)
+    //* mettre un eventListener sur le btn-close.dataset = tag et faire le searchOptions.deleted(...,...)
 
     //! 2 JOURS POUR FINIR LE PLUS GROS GOGOOGOGOOG
     let option = optionEl.innerText;
@@ -363,6 +363,7 @@ function deleteSearchOption(list, optionEl) {
             .classList.remove("d-none");
     }
 }
+export let initialHtmlDisplay;
 /**
  *
  */
@@ -371,6 +372,12 @@ function init() {
     dropdownsListener();
     searchBarListener();
     closeTagListener();
+    document.addEventListener(
+        "DOMContentLoaded",
+        () =>
+            (initialHtmlDisplay =
+                document.querySelector(".card-recipes").innerHTML)
+    );
 }
 
 init();
