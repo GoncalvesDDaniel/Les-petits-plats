@@ -9,7 +9,7 @@ import { searchOptions } from "../utils/search.js";
 // Dom Element (El)
 const cardRecipesDisplayEl = document.querySelector(".card-recipes .row");
 const ulHighlightTagEl = document.querySelector(".dropdown-tag");
-const tagUlEl = document.querySelector(".dropdown-tag");
+const mainTagUlEl = document.querySelector(".dropdown-tag");
 
 // Functions
 
@@ -84,7 +84,7 @@ function generateDropdownHtml(recipeList) {
     function getAllUniqueValeusOfSearch(array) {
         return {
             ingredients: getUniqueValues(getAllIngredients(array)),
-            appliance: getUniqueValues(getAllAppliance(array)),
+            appliances: getUniqueValues(getAllAppliance(array)),
             ustensils: getUniqueValues(getAllUstensils(array)),
         };
     }
@@ -240,7 +240,6 @@ function dropdownsListener() {
             dropdown.addEventListener(
                 "click",
                 (event) => {
-                    console.log(event.target.innerText);
                     //if an option is click
                     if (
                         // event.target.nodeName === "LI"
@@ -278,47 +277,73 @@ function dropdownsListener() {
         });
     });
 }
-// let testLi
-// testLi = event.target.cloneNode(true);
+
+/**
+ *
+ * @param {string} list
+ * @param {HTMLElement} optionEl
+ */
 function addSearchOption(list, optionEl) {
     //! Pour demain insha'Allah =>
 
     //TODO continuer l'algo
-    //TODO 1.) Finir les algo de tri pour appliances et ustensils
+    //* 1.) Finir les algo de tri pour appliances et ustensils
     //TODO 2.) Ajouter la fonctionnaliter searchOptions.delete (sans coder le HTML)
     //TODO 3.) Test du rendu visuel
 
     //TODO importer les nouvelles functions generatedDropdownsHTML et generatedRecipeCard
 
-    //TODO changer optionEl par event.target.innertext et enlever tout le bazard de clone li
+    //* changer optionEl par event.target.innertext et enlever tout le bazard de clone li
 
     //TODO mettre un eventListener sur le btn-close.dataset = tag et faire le searchOptions.deleted(...,...)
 
     //! 2 JOURS POUR FINIR LE PLUS GROS GOGOOGOGOOG
+    let option = optionEl.innerText;
 
-    let newOption = optionEl.innerText;
-    searchOptions.addOptions(list.id, newOption);
+    // Launch search algo
+    searchOptions.addOptions(list.id, option);
 
-    const highlightClassName =
+    // Add the tag on html page
+
+    let dropdownUlEl = list.querySelector(`.list_selected`);
+    const tagClassName =
         "w-100 d-flex justify-content-between align-items-center";
-    const highlightBtn = `<button class="btn  btn-close" data-btn="tag"></button>`;
-    let listUlEl = list.querySelector(`.list-${list.id}_selected`);
-    let liClone = optionEl.cloneNode(true);
+    const btnCloseTagHtml = `<button class="btn  btn-close" data-list=${list.id}></button>`;
 
-    //clone the clicked element, put some style, add a close btn and add to the hightligh dropdown ul and to the tag ul
-    let tagLi = optionEl.cloneNode(true);
-    tagLi.className = highlightClassName;
-    tagLi.innerHTML = `${tagLi.innerHTML} ${highlightBtn}`;
-    tagUlEl.appendChild(tagLi);
+    // li for ul dropdown
+    let liForDropdown = document.createElement("li");
+    liForDropdown.className = tagClassName;
+    liForDropdown.innerHTML = `${option} ${btnCloseTagHtml}`;
+    dropdownUlEl.appendChild(liForDropdown);
 
-    let listLi = optionEl.cloneNode(true);
-    listLi.className = highlightClassName;
-    listLi.innerHTML = `${listLi.innerHTML} ${highlightBtn}`;
-    listUlEl.appendChild(listLi);
+    // li for ul main page
+    let liForMain = document.createElement("li");
+    liForMain.className = tagClassName;
+    liForMain.innerHTML = `${option} ${btnCloseTagHtml}`;
+    mainTagUlEl.appendChild(liForMain);
 
+    // make the selected option no more availiable
     optionEl.classList.add("d-none");
-    // console.log(`launchSearch(${list} , ${optionEl.innerText})`);
-    // console.log(optionEl);
+}
+function closeTagListener() {
+    //select all ul with btn-close
+    mainTagUlEl.addEventListener("click", (event) => {
+        if (event.target.matches(".btn-close"))
+            deleteSearchOption(event.target.dataset.list, event);
+    });
+    const allDropdownUlEl = document.querySelectorAll(".list_selected");
+    allDropdownUlEl.forEach((ul) =>
+        ul.addEventListener("click", (event) => {
+            if (event.target.matches(".btn-close"))
+                deleteSearchOption(event.target.dataset.list, event.target);
+        })
+    );
+}
+function deleteSearchOption(list, optionEl) {
+    console.log(list);
+    console.log(optionEl.parentElement);
+
+    // searchOptions.deleteOptions(event.target.dataset.list ,event.target.previousSibling)
 }
 /**
  *
@@ -327,6 +352,7 @@ function init() {
     displayDefaultLayout(recipes);
     dropdownsListener();
     searchBarListener();
+    closeTagListener();
 }
 
 init();
