@@ -103,11 +103,30 @@ export function generateDropdownHtml(recipeList) {
             )
             // map to make each item an html li, then join all li
             .map(
-                (capitalizeElement) =>
-                    ` <li data-id='${capitalizeElement}'>${capitalizeElement}</li>`
+                (capitalizeString) =>
+                    ` <li data-id='${capitalizeString}'>${capitalizeString}</li>`
                 // name="${capitalizeElement}"
                 // data-list=${dropdownName}
             );
+        let dropdownSelectedEl = document.querySelector(
+            `#${listId} .list_selected`
+        );
+        //         if(dropdownSelectedEl.childElementCount>0){
+        // dropdownSelectedEl.childNodes.forEach((li)=>{
+
+        // })
+        // }
+        // const test = dropdownListHtml.filter((option) => {
+        //     if (
+        //         searchOptions.listId
+        //             .toLowerCase()
+        //             .includes(option.toLowerCase())
+        //     ) {
+        //         return false;
+        //     }
+        // });
+        // dropdownEl.innerHTML = test.join("");
+
         // select dropdown list and put all li
         let dropdownEl = document.querySelector(`#${listId} .list_unselected`);
         dropdownEl.innerHTML = dropdownListHtml.join("");
@@ -240,6 +259,7 @@ function dropdownsListener() {
             dropdown.addEventListener(
                 "click",
                 (event) => {
+                    console.log(event);
                     //if an option is click
                     if (
                         // event.target.nodeName === "LI"
@@ -284,25 +304,10 @@ function dropdownsListener() {
  * @param {HTMLElement} optionEl
  */
 function addSearchOption(list, optionEl) {
-    //! Pour demain insha'Allah =>
-
-    //TODO continuer l'algo
-    //* 1.) Finir les algo de tri pour appliances et ustensils
-    //* 2.) Ajouter la fonctionnaliter searchOptions.delete (sans coder le HTML)
-    //TODO 3.) Test du rendu visuel
-
-    //TODO importer les nouvelles functions generatedDropdownsHTML et generatedRecipeCard
-
-    //* changer optionEl par event.target.innertext et enlever tout le bazard de clone li
-
-    //* mettre un eventListener sur le btn-close.dataset = tag et faire le searchOptions.deleted(...,...)
-
-    //! 2 JOURS POUR FINIR LE PLUS GROS GOGOOGOGOOG
     let option = optionEl.innerText;
-
     // Launch search algo
     searchOptions.addOptions(list.id, option);
-
+    //
     // Add the tag on html page
 
     let dropdownUlEl = list.querySelector(`.list_selected`);
@@ -314,6 +319,7 @@ function addSearchOption(list, optionEl) {
     let liForDropdown = document.createElement("li");
     liForDropdown.className = tagClassName;
     liForDropdown.dataset.id = `${option}`;
+    liForDropdown.dataset.list = `${list.id}`;
     liForDropdown.innerHTML = `${option} ${btnCloseTagHtml}`;
     dropdownUlEl.appendChild(liForDropdown);
 
@@ -321,11 +327,20 @@ function addSearchOption(list, optionEl) {
     let liForMain = document.createElement("li");
     liForMain.className = tagClassName;
     liForMain.dataset.id = `${option}`;
+    liForMain.dataset.list = `${list.id}`;
     liForMain.innerHTML = `${option} ${btnCloseTagHtml}`;
     mainTagUlEl.appendChild(liForMain);
 
-    // make the selected option no more availiable
-    optionEl.classList.add("d-none");
+    // make the new selected option no more availiable
+    mainTagUlEl.querySelectorAll("li").forEach((li) => {
+        document
+            .querySelector(
+                `#${li.dataset.list} .list_unselected li[data-id='${li.dataset.id}']`
+            )
+            .classList.add("d-none");
+    });
+
+    // optionEl.classList.add("d-none");
 }
 function closeTagListener() {
     //select all ul with btn-close
@@ -348,7 +363,7 @@ function deleteSearchOption(list, optionEl) {
     if (list === "search") {
         // Search bar input reset with value not innerHTML
         optionEl.value = "";
-        console.log(searchOptions);
+        // console.log(searchOptions);
     } else {
         // remove tag from ul main and ul dropdown
         document

@@ -9,6 +9,7 @@ import { generateRecipesCard, generateDropdownHtml } from "../pages/main.js";
 let filteredRecipes = recipes;
 
 //DOM El
+const recipeTagEl = document.querySelector(".dropdown-tag");
 const recipeCardEl = document.querySelector(".card-recipes .row");
 const dropdownIngredients = document.querySelector(
     "#ingredients .list_selected"
@@ -186,9 +187,6 @@ function globalSearch(objOptions) {
     }
 
     displaySearchResult(userRecipes);
-    dropdownIngredients.innerHTML = "";
-    dropdownAppliances.innerHTML = "";
-    dropdownUstensils.innerHTML = "";
     generateDropdownHtml(userRecipes);
 }
 
