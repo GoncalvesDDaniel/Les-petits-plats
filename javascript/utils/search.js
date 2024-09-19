@@ -1,12 +1,20 @@
 //Import modules
 import "../../javascript/doc/jsdoc.js";
 import { recipes } from "../../data/recipes.js";
-import { initialHtmlDisplay } from "../pages/main.js";
+import { generateRecipesCard, generateDropdownHtml } from "../pages/main.js";
 // import { getAllUniqueValeusOfSearch } from "../pages/main.js";
 
 // Const
 // make immutable copy of the database
 let filteredRecipes = recipes;
+
+//DOM El
+const recipeCardEl = document.querySelector(".card-recipes .row");
+const dropdownIngredients = document.querySelector(
+    "#ingredients .list_selected"
+);
+const dropdownAppliances = document.querySelector("#appliances .list_selected");
+const dropdownUstensils = document.querySelector("#ustensils .list_selected");
 
 /**
  * @type {searchOptions} - Search params object
@@ -48,16 +56,16 @@ export let searchOptions = {
      *
      * @param {Recipe[]} arr
      */
-    displayRecipe(arr) {
-        console.log(initialHtmlDisplay);
-        if (!arr.length) {
-            console.log("DisplayResult :", "Aucune recette trouvée");
-        } else if (arr.length === recipes.length) {
-            console.log("Displaydefaut");
-        } else {
-            console.log("DisplayResult :", arr);
-        }
-    },
+    // displayRecipe(arr) {
+    //     // console.log(initialHtmlCardDisplay);
+    //     if (!arr.length) {
+    //         console.log("DisplayResult :", "Aucune recette trouvée");
+    //     } else if (arr.length === recipes.length) {
+    //         console.log("Displaydefaut");
+    //     } else {
+    //         console.log("DisplayResult :", arr);
+    //     }
+    // },
 };
 
 // penser a utiliser le destructuring function({origin , value})
@@ -177,23 +185,35 @@ function globalSearch(objOptions) {
         );
     }
 
-    searchOptions.displayRecipe(userRecipes);
-
-    // console.log(getAllUniqueValeusOfSearch(userRecipes).ingredients);
-    // console.log(getAllUniqueValeusOfSearch(userRecipes).appliance);
-    // console.log(getAllUniqueValeusOfSearch(userRecipes).ustensils);
+    displaySearchResult(userRecipes);
+    dropdownIngredients.innerHTML = "";
+    dropdownAppliances.innerHTML = "";
+    dropdownUstensils.innerHTML = "";
+    generateDropdownHtml(userRecipes);
 }
-// globalSearch(searchOptions);
+
+const initialHtmlCardDisplay = recipeCardEl.innerHTML;
+const initialHtmlIngredientsDropdown = dropdownIngredients.innerHTML;
+const initialHtmlAppliancesDropdown = dropdownAppliances.innerHTML;
+const initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
 
 /**
  *
  * @param {Recipe[]} arr
+ * @returns {void}
  */
 function displaySearchResult(arr) {
     if (!arr.length) {
+        recipeCardEl.innerHTML = `<p class="col hero-font text-center align-self-center mt" > Aucune recette ne contient '${searchOptions.search}' vous pouvez chercher 'tarte aux pommes', 'poisson', etc </p>`;
+
         console.log("DisplayResult :", "Aucune recette trouvée");
+    } else if (arr.length === recipes.length) {
+        recipeCardEl.innerHTML = initialHtmlCardDisplay;
     } else {
-        console.log("DisplayResult :", arr);
+        console.log("DisplayResult");
+        recipeCardEl.innerHTML = "";
+        // debugger;
+        arr.map((recipe) => generateRecipesCard(recipe));
     }
 }
 // Function that can be used for futur update

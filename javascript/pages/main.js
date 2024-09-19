@@ -7,8 +7,8 @@ import { searchOptions } from "../utils/search.js";
 // Export section
 
 // Dom Element (El)
-const cardRecipesDisplayEl = document.querySelector(".card-recipes .row");
-const ulHighlightTagEl = document.querySelector(".dropdown-tag");
+export const cardRecipesDisplayEl =
+    document.querySelector(".card-recipes .row");
 const mainTagUlEl = document.querySelector(".dropdown-tag");
 
 // Functions
@@ -151,14 +151,14 @@ ${ingredient.quantity || ""} ${ingredient.unit || ""}
 
         return ingredientsCardDiv.outerHTML;
     }
-
+    // debugger;
     // Building the HTML code
     const recipeIngredientsHtml = generateIngredientsCardHtml(
         individualRecipe.ingredients
     );
     const recipeCardHtml = `
                             <div
-                                class="card rounded-4 overflow-hidden position-relative"
+                                class="card rounded-4 overflow-hidden position-relative h-100"
                             >
                                 <img
                                     src="./assets/photos/${individualRecipe.image}"
@@ -363,7 +363,7 @@ function deleteSearchOption(list, optionEl) {
             .classList.remove("d-none");
     }
 }
-export let initialHtmlDisplay;
+
 /**
  *
  */
@@ -372,12 +372,6 @@ function init() {
     dropdownsListener();
     searchBarListener();
     closeTagListener();
-    document.addEventListener(
-        "DOMContentLoaded",
-        () =>
-            (initialHtmlDisplay =
-                document.querySelector(".card-recipes").innerHTML)
-    );
 }
 
 init();

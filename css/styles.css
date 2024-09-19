@@ -1,3 +1,7 @@
+html {
+    min-height: 100svh;
+    background-color: #ededed;
+}
 main {
     background-color: #ededed;
 }
@@ -57,7 +61,7 @@ h1.hero-font {
 }
 .accordion-collapse {
     font-size: 14px;
-    height: 20rem;
+    max-height: 20rem;
     border-right: 1px solid #dee2e6;
     border-left: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
@@ -190,3 +194,7 @@ button.search-button {
     padding: 0px;
     background-image: url(../assets/icons/Close.svg);
 } */
+.error-message {
+    height: 100%;
+    padding: 2rem;
+}
