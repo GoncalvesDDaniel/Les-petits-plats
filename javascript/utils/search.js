@@ -53,20 +53,6 @@ export let searchOptions = {
         }
         globalSearch(searchOptions);
     },
-    /**
-     *
-     * @param {Recipe[]} arr
-     */
-    // displayRecipe(arr) {
-    //     // console.log(initialHtmlCardDisplay);
-    //     if (!arr.length) {
-    //         console.log("DisplayResult :", "Aucune recette trouvée");
-    //     } else if (arr.length === recipes.length) {
-    //         console.log("Displaydefaut");
-    //     } else {
-    //         console.log("DisplayResult :", arr);
-    //     }
-    // },
 };
 
 // penser a utiliser le destructuring function({origin , value})
@@ -202,13 +188,12 @@ const initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
  */
 function displaySearchResult(arr) {
     if (!arr.length) {
-        recipeCardEl.innerHTML = `<p class="col hero-font text-center align-self-center mt" > Aucune recette ne contient '${searchOptions.search}' vous pouvez chercher 'tarte aux pommes', 'poisson', etc </p>`;
+        recipeCardEl.innerHTML = `<p class="col hero-font text-center align-self-center mt-5" > Aucune recette ne contient '${searchOptions.search}' vous pouvez chercher 'tarte aux pommes', 'poisson', etc </p>`;
 
         console.log("DisplayResult :", "Aucune recette trouvée");
     } else if (arr.length === recipes.length) {
         recipeCardEl.innerHTML = initialHtmlCardDisplay;
     } else {
-        console.log("DisplayResult");
         recipeCardEl.innerHTML = "";
         // debugger;
         arr.map((recipe) => generateRecipesCard(recipe));
@@ -221,3 +206,4 @@ function normalizeString(str) {
         .normalize("NFD") // split the accent from the letter
         .replace(/[\u0300-\u036f]/g, ""); // delete all accent
 }
+// console.log(normalizeString('Huile d'olive'))

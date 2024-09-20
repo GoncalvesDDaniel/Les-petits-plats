@@ -104,28 +104,13 @@ export function generateDropdownHtml(recipeList) {
             // map to make each item an html li, then join all li
             .map(
                 (capitalizeString) =>
-                    ` <li data-id='${capitalizeString}'>${capitalizeString}</li>`
+                    ` <li data-id="${capitalizeString}">${capitalizeString}</li>`
                 // name="${capitalizeElement}"
                 // data-list=${dropdownName}
             );
-        let dropdownSelectedEl = document.querySelector(
-            `#${listId} .list_selected`
-        );
-        //         if(dropdownSelectedEl.childElementCount>0){
-        // dropdownSelectedEl.childNodes.forEach((li)=>{
-
-        // })
-        // }
-        // const test = dropdownListHtml.filter((option) => {
-        //     if (
-        //         searchOptions.listId
-        //             .toLowerCase()
-        //             .includes(option.toLowerCase())
-        //     ) {
-        //         return false;
-        //     }
-        // });
-        // dropdownEl.innerHTML = test.join("");
+        // let dropdownSelectedEl = document.querySelector(
+        //     `#${listId} .list_selected`
+        // );
 
         // select dropdown list and put all li
         let dropdownEl = document.querySelector(`#${listId} .list_unselected`);
@@ -235,6 +220,7 @@ function searchBarListener() {
     const formResetBtn = document.querySelector(".search-button_reset");
 
     form.addEventListener("input", () => {
+        //TODO prevent defaut
         // console.log(userInput.value);
         if (userInput.value.length >= 3) {
             searchOptions.addOptions("search", userInput.value);
@@ -259,11 +245,11 @@ function dropdownsListener() {
             dropdown.addEventListener(
                 "click",
                 (event) => {
-                    console.log(event);
+                    // console.log(event.target.parentNode);
                     //if an option is click
                     if (
                         // event.target.nodeName === "LI"
-                        event.target.parentNode.matches(".list_unselected")
+                        event.target.parentNode?.matches(".list_unselected")
                     ) {
                         addSearchOption(dropdown, event.target);
                     }
@@ -331,13 +317,15 @@ function addSearchOption(list, optionEl) {
     liForMain.innerHTML = `${option} ${btnCloseTagHtml}`;
     mainTagUlEl.appendChild(liForMain);
 
-    // make the new selected option no more availiable
+    // New dropdown list has been generated so
+    // Look inside all options selected (inside ul tag banner) and
+    // make all selected no more availiable
     mainTagUlEl.querySelectorAll("li").forEach((li) => {
         document
             .querySelector(
-                `#${li.dataset.list} .list_unselected li[data-id='${li.dataset.id}']`
+                `#${li.dataset.list} .list_unselected li[data-id="${li.dataset.id}"]`
             )
-            .classList.add("d-none");
+            ?.classList?.add("d-none");
     });
 
     // optionEl.classList.add("d-none");
@@ -367,15 +355,15 @@ function deleteSearchOption(list, optionEl) {
     } else {
         // remove tag from ul main and ul dropdown
         document
-            .querySelector(`.dropdown-tag li[data-id='${deleteOption}']`)
+            .querySelector(`.dropdown-tag li[data-id="${deleteOption}"]`)
             .remove();
         document
-            .querySelector(`#${list} li[data-id='${deleteOption}']`)
+            .querySelector(`#${list} li[data-id="${deleteOption}"]`)
             .remove();
         // make the selection available
         document
-            .querySelector(`.list_unselected li[data-id='${deleteOption}']`)
-            .classList.remove("d-none");
+            .querySelector(`.list_unselected li[data-id="${deleteOption}"]`)
+            ?.classList?.remove("d-none");
     }
 }
 
