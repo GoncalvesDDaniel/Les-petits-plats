@@ -11,11 +11,6 @@ let filteredRecipes = recipes;
 //DOM El
 const recipeTagEl = document.querySelector(".dropdown-tag");
 const recipeCardEl = document.querySelector(".card-recipes .row");
-const dropdownIngredients = document.querySelector(
-    "#ingredients .list_selected"
-);
-const dropdownAppliances = document.querySelector("#appliances .list_selected");
-const dropdownUstensils = document.querySelector("#ustensils .list_selected");
 
 /**
  * @type {searchOptions} - Search params object
@@ -177,9 +172,6 @@ function globalSearch(objOptions) {
 }
 
 const initialHtmlCardDisplay = recipeCardEl.innerHTML;
-const initialHtmlIngredientsDropdown = dropdownIngredients.innerHTML;
-const initialHtmlAppliancesDropdown = dropdownAppliances.innerHTML;
-const initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
 
 /**
  *
@@ -187,15 +179,19 @@ const initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
  * @returns {void}
  */
 function displaySearchResult(arr) {
+    const recipesCountEl = document.querySelector(".recipes-count");
     if (!arr.length) {
+        recipesCountEl.innerHTML = `0 recette`;
         recipeCardEl.innerHTML = `<p class="col hero-font text-center align-self-center mt-5" > Aucune recette ne contient '${searchOptions.search}' vous pouvez chercher 'tarte aux pommes', 'poisson', etc </p>`;
-
-        console.log("DisplayResult :", "Aucune recette trouvée");
     } else if (arr.length === recipes.length) {
+        recipesCountEl.innerHTML = `1500 recettes`;
         recipeCardEl.innerHTML = initialHtmlCardDisplay;
     } else {
+        // only for the grammar purpose
+        arr.length >= 2
+            ? (recipesCountEl.innerHTML = `${arr.length} recettes`)
+            : (recipesCountEl.innerHTML = `${arr.length} recette`);
         recipeCardEl.innerHTML = "";
-        // debugger;
         arr.map((recipe) => generateRecipesCard(recipe));
     }
 }

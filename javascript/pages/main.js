@@ -105,17 +105,13 @@ export function generateDropdownHtml(recipeList) {
             .map(
                 (capitalizeString) =>
                     ` <li data-id="${capitalizeString}">${capitalizeString}</li>`
-                // name="${capitalizeElement}"
-                // data-list=${dropdownName}
             );
-        // let dropdownSelectedEl = document.querySelector(
-        //     `#${listId} .list_selected`
-        // );
 
         // select dropdown list and put all li
         let dropdownEl = document.querySelector(`#${listId} .list_unselected`);
         dropdownEl.innerHTML = dropdownListHtml.join("");
     }
+    dropdownsListener();
 }
 
 // Function for card recipe
@@ -219,9 +215,8 @@ function searchBarListener() {
     const userInput = document.querySelector("#search");
     const formResetBtn = document.querySelector(".search-button_reset");
 
-    form.addEventListener("input", () => {
-        //TODO prevent defaut
-        // console.log(userInput.value);
+    form.addEventListener("input", (event) => {
+        event.preventDefault();
         if (userInput.value.length >= 3) {
             searchOptions.addOptions("search", userInput.value);
         } else {
@@ -229,58 +224,72 @@ function searchBarListener() {
         }
     });
     formResetBtn.addEventListener("click", () => {
-        // userInput.value = "";
         deleteSearchOption("search", userInput);
     });
 }
 function dropdownsListener() {
     const dropdownsEl = document.querySelectorAll(".accordion");
+    const dropdownIngredients = document.querySelector(
+        "#ingredients .list_unselected"
+    );
+    const dropdownAppliances = document.querySelector(
+        "#appliances .list_unselected"
+    );
+    const dropdownUstensils = document.querySelector(
+        "#ustensils .list_unselected"
+    );
+    let initialHtml = {
+        ingredients: dropdownIngredients.innerHTML,
+        appliances: dropdownAppliances.innerHTML,
+        ustensils: dropdownUstensils.innerHTML,
+    };
+    // let initialHtmlIngredientsDropdown = dropdownIngredients.innerHTML;
+    // let initialHtmlAppliancesDropdown = dropdownAppliances.innerHTML;
+    // let initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
 
     // Listening if a dropdown is open with Bootstrap Events
     // https://getbootstrap.com/docs/4.0/components/collapse/
     dropdownsEl.forEach((dropdown) => {
         dropdown.addEventListener("shown.bs.collapse", (event) => {
+            // console.log("%c liste", "color:red");
+            // console.log(dropdown.querySelector(".list_unselected").innerText);
+
             //Listening if an option is selected
-            // console.log(dropdown.id);
-            dropdown.addEventListener(
-                "click",
-                (event) => {
-                    // console.log(event.target.parentNode);
-                    //if an option is click
-                    if (
-                        // event.target.nodeName === "LI"
-                        event.target.parentNode?.matches(".list_unselected")
-                    ) {
-                        addSearchOption(dropdown, event.target);
-                    }
-                    //if the clear btn is click
-                    if (
-                        // event.target.nodeName === "BUTTON" &&
-                        event.target.dataset.btn === "clear"
-                    ) {
-                        dropdown.querySelector("input").value = "";
-                        // console.log(`resetSearch()`);
-                    }
-                    //? add spellchecker to the search input
-                    if (event.target.nodeName === "INPUT") {
-                        dropdown
-                            .querySelector("input")
-                            .addEventListener("keydown", (event) =>
-                                console.log(
-                                    `launchSeach(${dropdown.id}, ${event.target.value})`
-                                )
-                            );
-                    }
+            dropdown.addEventListener("click", (event) => {
+                //if an option is click
+                if (event.target.parentNode?.matches(".list_unselected")) {
+                    addSearchOption(dropdown, event.target);
                 }
-                // addSearchOption(event.target)
-            );
+                //if the clear btn is click
+                if (event.target.dataset.btn === "clear") {
+                    dropdown.querySelector("input").value = "";
+                    dropdown.querySelector(".list_unselected").innerHTML =
+                        initialHtml[dropdown.id];
+                    // console.log(`resetSearch()`);
+                }
+                //? add spellchecker to the search input
+                if (event.target.nodeName === "INPUT") {
+                    dropdown
+                        .querySelector("input")
+                        .addEventListener("keyup", (event) =>
+                            searchOnDropdowns(dropdown.id, event.target.value)
+                        );
+                }
+            });
         });
-        // Listening if a dropdown is close with Bootstrap Events
-        dropdown.addEventListener("hidden.bs.collapse", () => {
-            dropdown.removeEventListener("click", () =>
-                deleteSearchOption("remove")
+
+        function searchOnDropdowns(id, input) {
+            let dropdownLiEl = document.querySelectorAll(
+                `#${id} .list_unselected li`
             );
-        });
+            dropdownLiEl.forEach((li) => {
+                if (li.innerText.toLowerCase().includes(input.toLowerCase())) {
+                    li.classList.remove("d-none");
+                } else {
+                    li.classList.add("d-none");
+                }
+            });
+        }
     });
 }
 
@@ -351,7 +360,6 @@ function deleteSearchOption(list, optionEl) {
     if (list === "search") {
         // Search bar input reset with value not innerHTML
         optionEl.value = "";
-        // console.log(searchOptions);
     } else {
         // remove tag from ul main and ul dropdown
         document
@@ -372,7 +380,7 @@ function deleteSearchOption(list, optionEl) {
  */
 function init() {
     displayDefaultLayout(recipes);
-    dropdownsListener();
+    // dropdownsListener();
     searchBarListener();
     closeTagListener();
 }
