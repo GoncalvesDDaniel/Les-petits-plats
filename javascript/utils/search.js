@@ -186,14 +186,19 @@ function displaySearchResult(arr) {
     } else if (arr.length === recipes.length) {
         recipesCountEl.innerHTML = `1500 recettes`;
         recipeCardEl.innerHTML = initialHtmlCardDisplay;
-    } else {
-        // only for the grammar purpose
-        arr.length >= 2
-            ? (recipesCountEl.innerHTML = `${arr.length} recettes`)
-            : (recipesCountEl.innerHTML = `${arr.length} recette`);
-        recipeCardEl.innerHTML = "";
-        arr.map((recipe) => generateRecipesCard(recipe));
     }
+    // only for the grammar purposes
+    else if (arr.length === 1) {
+        recipesCountEl.innerHTML = `0${arr.length} recette`;
+    }
+    // only for stylish purposes
+    else {
+        arr.length < 10
+            ? (recipesCountEl.innerHTML = `0${arr.length} recettes`)
+            : (recipesCountEl.innerHTML = `${arr.length} recettes`);
+    }
+    recipeCardEl.innerHTML = "";
+    arr.map((recipe) => generateRecipesCard(recipe));
 }
 // Function that can be used for futur update
 function normalizeString(str) {
