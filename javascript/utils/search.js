@@ -67,16 +67,40 @@ function globalSearch(objOptions) {
     function filterByUserSearch(str, recipeArray) {
         // str.length>3 if input listener function set correctly
         let searchResult = [];
-        searchResult = recipeArray.filter(
-            (recipe) =>
+        for (let index = 0; index < recipeArray.length; index++) {
+            const recipe = recipeArray[index];
+            let recipeMatch = false;
+            if (
                 recipe.name.toLowerCase().includes(str.toLowerCase()) ||
-                recipe.description.toLowerCase().includes(str.toLowerCase()) ||
-                recipe.ingredients.some((ing) =>
-                    ing.ingredient.toLowerCase().includes(str.toLowerCase())
-                )
-        );
+                recipe.description.toLowerCase().includes(str.toLowerCase())
+            ) {
+                recipeMatch = true;
+                searchResult.push(recipe);
+            }
+            if (!recipeMatch) {
+                for (let i = 0; i < recipe.ingredients.length; i++) {
+                    const ingredient = recipe.ingredients[i].ingredient;
+                    if (ingredient.toLowerCase().includes(str.toLowerCase())) {
+                        searchResult.push(recipe);
+                    }
+                }
+            }
+        }
+        console.log(searchResult);
         return searchResult;
     }
+    // function filterByUserSearch(str, recipeArray) { // str.length>3 if input listener function set correctly
+    //     let searchResult = [];
+    //     searchResult = recipeArray.filter(
+    //         (recipe) =>
+    //             recipe.name.toLowerCase().includes(str.toLowerCase()) ||
+    //             recipe.description.toLowerCase().includes(str.toLowerCase()) ||
+    //             recipe.ingredients.some((ing) =>
+    //                 ing.ingredient.toLowerCase().includes(str.toLowerCase())
+    //             )
+    //     );
+    //     return searchResult;
+    // }
 
     /**
      * Return all recipes that have the ingredient choised in the dropdown menu
