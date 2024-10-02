@@ -180,6 +180,7 @@ const initialHtmlCardDisplay = recipeCardEl.innerHTML;
  */
 function displaySearchResult(arr) {
     const recipesCountEl = document.querySelector(".recipes-count");
+    recipeCardEl.innerHTML = "";
     if (!arr.length) {
         recipesCountEl.innerHTML = `0 recette`;
         recipeCardEl.innerHTML = `<p class="col hero-font text-center align-self-center mt-5" > Aucune recette ne contient '${searchOptions.search}' vous pouvez chercher 'tarte aux pommes', 'poisson', etc </p>`;
@@ -197,7 +198,6 @@ function displaySearchResult(arr) {
             ? (recipesCountEl.innerHTML = `0${arr.length} recettes`)
             : (recipesCountEl.innerHTML = `${arr.length} recettes`);
     }
-    recipeCardEl.innerHTML = "";
     arr.map((recipe) => generateRecipesCard(recipe));
 }
 // Function that can be used for futur update
