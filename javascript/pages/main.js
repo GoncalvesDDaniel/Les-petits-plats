@@ -243,9 +243,6 @@ function dropdownsListener() {
         appliances: dropdownAppliances.innerHTML,
         ustensils: dropdownUstensils.innerHTML,
     };
-    // let initialHtmlIngredientsDropdown = dropdownIngredients.innerHTML;
-    // let initialHtmlAppliancesDropdown = dropdownAppliances.innerHTML;
-    // let initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
 
     // Listening if a dropdown is open with Bootstrap Events
     // https://getbootstrap.com/docs/4.0/components/collapse/

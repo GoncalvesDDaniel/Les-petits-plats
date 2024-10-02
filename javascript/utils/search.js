@@ -86,21 +86,8 @@ function globalSearch(objOptions) {
                 }
             }
         }
-        console.log(searchResult);
         return searchResult;
     }
-    // function filterByUserSearch(str, recipeArray) { // str.length>3 if input listener function set correctly
-    //     let searchResult = [];
-    //     searchResult = recipeArray.filter(
-    //         (recipe) =>
-    //             recipe.name.toLowerCase().includes(str.toLowerCase()) ||
-    //             recipe.description.toLowerCase().includes(str.toLowerCase()) ||
-    //             recipe.ingredients.some((ing) =>
-    //                 ing.ingredient.toLowerCase().includes(str.toLowerCase())
-    //             )
-    //     );
-    //     return searchResult;
-    // }
 
     /**
      * Return all recipes that have the ingredient choised in the dropdown menu
