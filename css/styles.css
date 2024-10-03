@@ -56,6 +56,9 @@ h1.hero-font {
     background-color: #fff !important;
     border-bottom: none;
 }
+.accordion-button {
+    margin-right: 63px;
+}
 .accordion-collapse {
     font-size: 14px;
     max-height: 20rem;
