@@ -189,7 +189,7 @@ ${ingredient.quantity || ""} ${ingredient.unit || ""}
 `;
     // Building and adding the card to the page
     const recipeCard = document.createElement("article");
-    recipeCard.className = "col-4 p-4 mb-3";
+    recipeCard.className = "col-lg-4 p-4 mb-3";
     recipeCard.innerHTML = recipeCardHtml;
     cardRecipesDisplayEl.appendChild(recipeCard);
 }
