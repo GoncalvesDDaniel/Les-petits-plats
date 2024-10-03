@@ -1,26 +1,23 @@
-// Import section
+//*Import section
 import "../../javascript/doc/jsdoc.js";
 import { recipes } from "../../data/recipes.js";
 import { searchOptions } from "../utils/search.js";
 // import { fetchDataRecipes } from "../utils/fetchAPI.mjs";
 
-// Export section
-
-// Dom Element (El)
+//*Dom Element (El)
 export const cardRecipesDisplayEl =
     document.querySelector(".card-recipes .row");
 const mainTagUlEl = document.querySelector(".dropdown-tag");
 
-// Functions
-
-// Functions for dropdowns menu
+//*Functions
+//*Functions for dropdowns menu
 /**
- * Go throw all ingredients of the recipe and create the dropdown corresponding
- * @param {Recipe[]} array - An array of unique values to display in the dropdown
- * @param {string} dropdownName - Name has to match the id.accordion ('ingredients', 'appliance' or 'ustensils')
+ * Go throw all ingredients,ustensils and appliances of the recipe list and create the dropdown corresponding
+ * @param {Recipe[]} array
  */
 export function generateDropdownHtml(recipeList) {
     // Tool to build the dropdown
+
     /**
      *Extrate all ingredients of the recipeList and return an array with duplicate ingredients
      * @param {Recipe[]} array - Recipe array from the database
@@ -101,10 +98,10 @@ export function generateDropdownHtml(recipeList) {
                     uncapitalizeString[0].toUpperCase()
                 )
             )
-            // map to make each item an html li, then join all li
+            // map to make each item an html li
             .map(
                 (capitalizeString) =>
-                    ` <li data-id="${capitalizeString}">${capitalizeString}</li>`
+                    `<li data-id="${capitalizeString}">${capitalizeString}</li>`
             );
 
         // select dropdown list and put all li
@@ -114,11 +111,11 @@ export function generateDropdownHtml(recipeList) {
     dropdownsListener();
 }
 
-// Function for card recipe
+//*Functions for card recipe
+
 /**
  * Generate all card of the given recipe array
  * @param {Recipe} individualRecipe
- * @returns {HTMLElemnt}
  */
 export function generateRecipesCard(individualRecipe) {
     /**
@@ -151,7 +148,6 @@ ${ingredient.quantity || ""} ${ingredient.unit || ""}
 
         return ingredientsCardDiv.outerHTML;
     }
-    // debugger;
     // Building the HTML code
     const recipeIngredientsHtml = generateIngredientsCardHtml(
         individualRecipe.ingredients
@@ -198,103 +194,9 @@ ${ingredient.quantity || ""} ${ingredient.unit || ""}
     cardRecipesDisplayEl.appendChild(recipeCard);
 }
 
+//*Function for the algorithm
 /**
- * Generate card and display it. Only the first 10 recipes
- * @param {Recipe[]} array
- */
-function displayDefaultLayout(array) {
-    generateDropdownHtml(array);
-    for (let index = 0; index < 10; index++) {
-        generateRecipesCard(array[index]);
-    }
-}
-
-// Function addListener
-function searchBarListener() {
-    const form = document.querySelector("form");
-    const userInput = document.querySelector("#search");
-    const formResetBtn = document.querySelector(".search-button_reset");
-
-    form.addEventListener("input", (event) => {
-        event.preventDefault();
-        if (userInput.value.length >= 3) {
-            searchOptions.addOptions("search", userInput.value);
-        } else {
-            searchOptions.deleteOptions("search", "");
-        }
-    });
-    formResetBtn.addEventListener("click", () => {
-        deleteSearchOption("search", userInput);
-    });
-}
-function dropdownsListener() {
-    const dropdownsEl = document.querySelectorAll(".accordion");
-    const dropdownIngredients = document.querySelector(
-        "#ingredients .list_unselected"
-    );
-    const dropdownAppliances = document.querySelector(
-        "#appliances .list_unselected"
-    );
-    const dropdownUstensils = document.querySelector(
-        "#ustensils .list_unselected"
-    );
-    let initialHtml = {
-        ingredients: dropdownIngredients.innerHTML,
-        appliances: dropdownAppliances.innerHTML,
-        ustensils: dropdownUstensils.innerHTML,
-    };
-    // let initialHtmlIngredientsDropdown = dropdownIngredients.innerHTML;
-    // let initialHtmlAppliancesDropdown = dropdownAppliances.innerHTML;
-    // let initialHtmlUstensilsDropdown = dropdownUstensils.innerHTML;
-
-    // Listening if a dropdown is open with Bootstrap Events
-    // https://getbootstrap.com/docs/4.0/components/collapse/
-    dropdownsEl.forEach((dropdown) => {
-        dropdown.addEventListener("shown.bs.collapse", (event) => {
-            // console.log("%c liste", "color:red");
-            // console.log(dropdown.querySelector(".list_unselected").innerText);
-
-            //Listening if an option is selected
-            dropdown.addEventListener("click", (event) => {
-                //if an option is click
-                if (event.target.parentNode?.matches(".list_unselected")) {
-                    addSearchOption(dropdown, event.target);
-                }
-                //if the clear btn is click
-                if (event.target.dataset.btn === "clear") {
-                    dropdown.querySelector("input").value = "";
-                    dropdown.querySelector(".list_unselected").innerHTML =
-                        initialHtml[dropdown.id];
-                    // console.log(`resetSearch()`);
-                }
-                //? add spellchecker to the search input
-                if (event.target.nodeName === "INPUT") {
-                    dropdown
-                        .querySelector("input")
-                        .addEventListener("keyup", (event) =>
-                            searchOnDropdowns(dropdown.id, event.target.value)
-                        );
-                }
-            });
-        });
-
-        function searchOnDropdowns(id, input) {
-            let dropdownLiEl = document.querySelectorAll(
-                `#${id} .list_unselected li`
-            );
-            dropdownLiEl.forEach((li) => {
-                if (li.innerText.toLowerCase().includes(input.toLowerCase())) {
-                    li.classList.remove("d-none");
-                } else {
-                    li.classList.add("d-none");
-                }
-            });
-        }
-    });
-}
-
-/**
- *
+ * Add a tag and launch a global search with all options and display it
  * @param {string} list
  * @param {HTMLElement} optionEl
  */
@@ -336,23 +238,13 @@ function addSearchOption(list, optionEl) {
             )
             ?.classList?.add("d-none");
     });
+}
 
-    // optionEl.classList.add("d-none");
-}
-function closeTagListener() {
-    //select all ul with btn-close
-    mainTagUlEl.addEventListener("click", (event) => {
-        if (event.target.matches(".btn-close"))
-            deleteSearchOption(event.target.dataset.list, event.target);
-    });
-    const allDropdownUlEl = document.querySelectorAll(".list_selected");
-    allDropdownUlEl.forEach((ul) =>
-        ul.addEventListener("click", (event) => {
-            if (event.target.matches(".btn-close"))
-                deleteSearchOption(event.target.dataset.list, event.target);
-        })
-    );
-}
+/**
+ * Deleted an option and launch a global search with the remaining options and display it
+ * @param {string} list
+ * @param {HTMLElement} optionEl
+ */
 function deleteSearchOption(list, optionEl) {
     let deleteOption = optionEl.parentNode.innerText;
     searchOptions.deleteOptions(list, deleteOption);
@@ -375,12 +267,118 @@ function deleteSearchOption(list, optionEl) {
     }
 }
 
+//*Functions Listener
+
+function searchBarListener() {
+    const form = document.querySelector("form");
+    const userInput = document.querySelector("#search");
+    const formResetBtn = document.querySelector(".search-button_reset");
+
+    form.addEventListener("input", (event) => {
+        event.preventDefault();
+        if (userInput.value.length >= 3) {
+            searchOptions.addOptions("search", userInput.value);
+        } else {
+            searchOptions.deleteOptions("search", "");
+        }
+    });
+    formResetBtn.addEventListener("click", () => {
+        searchOptions.deleteOptions("search", "");
+        userInput.value = "";
+    });
+}
+function dropdownsListener() {
+    const dropdownsEl = document.querySelectorAll(".accordion");
+    const dropdownIngredients = document.querySelector(
+        "#ingredients .list_unselected"
+    );
+    const dropdownAppliances = document.querySelector(
+        "#appliances .list_unselected"
+    );
+    const dropdownUstensils = document.querySelector(
+        "#ustensils .list_unselected"
+    );
+    let initialHtml = {
+        ingredients: dropdownIngredients.innerHTML,
+        appliances: dropdownAppliances.innerHTML,
+        ustensils: dropdownUstensils.innerHTML,
+    };
+
+    // Listening if a dropdown is open with Bootstrap Events
+    // https://getbootstrap.com/docs/4.0/components/collapse/
+    dropdownsEl.forEach((dropdown) => {
+        dropdown.addEventListener("shown.bs.collapse", (event) => {
+            //Listening if an option is selected
+            dropdown.addEventListener("click", (event) => {
+                //if an option is click
+                if (event.target.parentNode?.matches(".list_unselected")) {
+                    addSearchOption(dropdown, event.target);
+                }
+                //if the clear btn is click
+                if (event.target.dataset.btn === "clear") {
+                    dropdown.querySelector("input").value = "";
+                    dropdown.querySelector(".list_unselected").innerHTML =
+                        initialHtml[dropdown.id];
+                }
+                //? add spellchecker to the search input
+                if (event.target.nodeName === "INPUT") {
+                    dropdown
+                        .querySelector("input")
+                        .addEventListener("keyup", (event) =>
+                            searchOnDropdowns(dropdown.id, event.target.value)
+                        );
+                }
+            });
+        });
+
+        /**
+         * Search in the dropdown what is written in the dropdown search bar
+         * @param {string} id - name of the droppdown
+         * @param {string} input - value of the input string
+         */
+        function searchOnDropdowns(id, input) {
+            let dropdownLiEl = document.querySelectorAll(
+                `#${id} .list_unselected li`
+            );
+            dropdownLiEl.forEach((li) => {
+                if (li.innerText.toLowerCase().includes(input.toLowerCase())) {
+                    li.classList.remove("d-none");
+                } else {
+                    li.classList.add("d-none");
+                }
+            });
+        }
+    });
+}
+
+function closeTagListener() {
+    //select all ul with btn-close
+    mainTagUlEl.addEventListener("click", (event) => {
+        if (event.target.matches(".btn-close"))
+            deleteSearchOption(event.target.dataset.list, event.target);
+    });
+    const allDropdownUlEl = document.querySelectorAll(".list_selected");
+    allDropdownUlEl.forEach((ul) =>
+        ul.addEventListener("click", (event) => {
+            if (event.target.matches(".btn-close"))
+                deleteSearchOption(event.target.dataset.list, event.target);
+        })
+    );
+}
+
 /**
- *
+ * Generate card and display it. Only the first 10 recipes
+ * @param {Recipe[]} array
  */
+function displayDefaultLayout(array) {
+    generateDropdownHtml(array);
+    for (let index = 0; index < 10; index++) {
+        generateRecipesCard(array[index]);
+    }
+}
+
 function init() {
     displayDefaultLayout(recipes);
-    // dropdownsListener();
     searchBarListener();
     closeTagListener();
 }

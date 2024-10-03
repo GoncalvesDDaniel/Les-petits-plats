@@ -50,8 +50,6 @@ export let searchOptions = {
     },
 };
 
-// penser a utiliser le destructuring function({origin , value})
-
 /**
  * Search the recipe on the database with all the user's inputs
  * @param {searchOptions} objOptions
@@ -116,7 +114,7 @@ function globalSearch(objOptions) {
     }
 
     /**
-     *
+     * Return all recipes that have the ustensils choised in the dropdown menu
      * @param {string[]} options
      * @param {Recipe[]} recipeArray
      * @returns {Recipe[]}
@@ -136,14 +134,12 @@ function globalSearch(objOptions) {
     }
     let userRecipes = [];
 
-    //Check if we have a user search option
     if (objOptions.search.length >= 3) {
         userRecipes = filterByUserSearch(objOptions.search, filteredRecipes);
     } else {
         userRecipes = filteredRecipes;
     }
 
-    //Check if we have a ingredients tag
     if (searchOptions.ingredients.length > 0) {
         userRecipes = filterIngredientsByTags(
             searchOptions.ingredients,
@@ -151,7 +147,6 @@ function globalSearch(objOptions) {
         );
     }
 
-    //Check if we have a appliance tag
     if (searchOptions.appliances.length > 0) {
         userRecipes = filterAppliancesByTags(
             searchOptions.appliances,
@@ -159,7 +154,6 @@ function globalSearch(objOptions) {
         );
     }
 
-    //Check if we have a ustensil tag
     if (searchOptions.ustensils.length > 0) {
         userRecipes = filterUstensilsByTags(
             searchOptions.ustensils,
@@ -174,7 +168,7 @@ function globalSearch(objOptions) {
 const initialHtmlCardDisplay = recipeCardEl.innerHTML;
 
 /**
- *
+ * Diplay the result of the global search function
  * @param {Recipe[]} arr
  * @returns {void}
  */
@@ -207,4 +201,3 @@ function normalizeString(str) {
         .normalize("NFD") // split the accent from the letter
         .replace(/[\u0300-\u036f]/g, ""); // delete all accent
 }
-// console.log(normalizeString('Huile d'olive'))
